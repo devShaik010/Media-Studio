@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'SkolarSans';
+  src: url('/fonts/SkolarSans-BdCond_Cyr-Ltn.woff2') format('woff2');
+  /* Add other font formats as needed */
+}
+
+:root {
+  /* Font Family */
+  --font-primary: 'Merriweather', Georgia, Times, "Times New Roman", serif;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  /* Main Theme Colors */
+  --color-white: #FFFFFF;
+  --color-dark: #00171F;
+  --color-navy: #003459;
+  --color-blue: #007EA7;
+  --color-light-blue: #00A8E8;
+
+  /* Background Colors */
+  --bg-primary: var(--color-white);
+  --bg-secondary: var(--color-navy);
+  --bg-accent: var(--color-light-blue);
+
+  /* Text Colors */
+  --text-primary: var(--color-dark);
+  --text-secondary: var(--color-white);
+  --text-accent: var(--color-blue);
+
+  /* Newsreader Font Weights */
+  --font-weight-thin: 200;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-extrabold: 800;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Custom Utility Classes */
+.bg-theme-dark {
+  background-color: var(--color-dark);
+}
+
+.bg-theme-navy {
+  background-color: var(--color-navy);
+}
+
+.bg-theme-blue {
+  background-color: var(--color-blue);
+}
+
+.bg-theme-light-blue {
+  background-color: var(--color-light-blue);
+}
+
+/* Text Colors */
+.text-theme-dark {
+  color: var(--color-dark);
+}
+
+.text-theme-navy {
+  color: var(--color-navy);
+}
+
+.text-theme-blue {
+  color: var(--color-blue);
+}
+
+.text-theme-light-blue {
+  color: var(--color-light-blue);
+}
+
+/* Hover Effects */
+.hover-theme-blue:hover {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+.hover-theme-light-blue:hover {
+  background-color: var(--color-light-blue);
+  color: var(--color-white);
+}
+
+/* Transitions */
+.transition-theme {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Typography Classes */
+.font-merriweather {
+  font-family: var(--font-primary);
+}
+
+.newsreader-regular {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-weight: var(--font-weight-regular);
+}
+
+.font-light {
+  font-weight: var(--font-weight-light);
+}
+
+.font-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+.font-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+.font-italic {
+  font-style: italic;
+}
+
+.newsreader-thin {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-weight: var(--font-weight-thin);
+}
+
+.newsreader-medium {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-weight: var(--font-weight-medium);
+}
+
+.newsreader-semibold {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-weight: var(--font-weight-semibold);
+}
+
+.newsreader-bold {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-weight: var(--font-weight-bold);
+}
+
+.newsreader-extrabold {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-weight: var(--font-weight-extrabold);
+}
+
+.newsreader-italic {
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-style: italic;
+}
