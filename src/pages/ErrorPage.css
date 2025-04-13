@@ -1,0 +1,38 @@
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.error-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.error-page p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.back-home-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.back-home-button:hover {
+  background-color: var(--secondary-color);
+}
+
+[dir="rtl"] .error-page {
+  font-family: var(--font-ur);
+}

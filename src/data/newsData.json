@@ -1,0 +1,49 @@
+{
+  "categories": [
+    {
+      "id": "world",
+      "name": "World",
+      "description": "Global news and international events"
+    },
+    {
+      "id": "politics",
+      "name": "Politics",
+      "description": "Political news and analysis"
+    }
+  ],
+  "articles": [
+    {
+      "id": "001",
+      "slug": "syria-constitution-analysis",
+      "title": "Syria's interim constitution raises fears of sectarian division",
+      "category": "politics",
+      "source": "VOA KURDISH",
+      "author": {
+        "id": "auth001",
+        "name": "James Wilson",
+        "role": "Senior Political Correspondent"
+      },
+      "publishDate": "2025-04-13T08:00:00Z",
+      "modifiedDate": "2025-04-13T10:30:00Z",
+      "thumbnail": "/images/thumbnails/syria-const.jpg",
+      "heroImage": "/images/hero/syria-const-large.jpg",
+      "summary": "Analysis shows potential risks in Syria's new temporary constitution...",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "The newly proposed Syrian interim constitution has sparked concerns..."
+        },
+        {
+          "type": "quote",
+          "content": "This could lead to further complications...",
+          "author": "Dr. Sarah Ahmed",
+          "title": "Political Analyst"
+        }
+      ],
+      "relatedArticles": ["002", "003"],
+      "tags": ["Syria", "Constitution", "Middle East"],
+      "readingTime": "5 min",
+      "views": 1200
+    }
+  ]
+}

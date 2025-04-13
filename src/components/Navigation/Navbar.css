@@ -1,0 +1,139 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar.scrolled {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: rgba(0, 52, 89, 0.12);
+  margin: 0 8px;
+}
+
+.navbar-logo {
+  height: 36px;
+  width: auto;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.language-select {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 1rem;
+  padding-right: 1rem;
+  border-right: 1px solid #e0e0e0;
+}
+
+.language-link {
+  color: var(--color-navy);
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.language-link:hover {
+  background-color: rgba(0, 52, 89, 0.04);
+}
+
+.language-link.active {
+  color: var(--color-blue);
+  font-weight: 600;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[dir="rtl"] .language-link {
+  font-family: var(--font-ur);
+  font-size: 1rem;
+}
+
+[dir="rtl"] .navbar-container {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .navbar-left {
+  flex-direction: row-reverse;
+}
+
+.language-select button {
+  color: var(--color-navy);
+}
+
+.language-select button.active {
+  color: var(--color-blue);
+  font-weight: 600;
+}
+
+.navbar .MuiIconButton-root {
+  color: var(--color-navy);
+}
+
+.navbar .MuiIconButton-root:hover {
+  background-color: rgba(0, 52, 89, 0.04);
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0.5rem;
+  }
+  
+  .navbar-logo {
+    height: 32px;
+  }
+  
+  .language-select {
+    margin-right: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
