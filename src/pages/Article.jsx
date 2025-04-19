@@ -4,7 +4,6 @@ import { useLanguage } from '@context/LanguageContext';
 import { newsData, urduArticles } from '@data/newsData';
 import MainLayout from '@layouts/MainLayout';
 import ArticleContent from '@components/Article/ArticleContent';
-import './Article.css';
 
 const Article = () => {
   const { slug, lang } = useParams();
@@ -38,13 +37,18 @@ const Article = () => {
   if (!article) {
     return (
       <MainLayout>
-        <div className="error-container">
-          <h1>{language === 'ur' ? 'مضمون نہیں ملا' : 'Article Not Found'}</h1>
-          <p>
-            {language === 'ur' 
-              ? 'مطلوبہ مضمون موجود نہیں ہے یا منتقل کر دیا گیا ہے۔'
-              : 'The requested article does not exist or has been moved.'}
-          </p>
+        <div className="min-h-[calc(100vh - 60px)] bg-white">
+          <div className="max-w-screen-md mx-auto mt-16 mb-16 text-center p-8">
+            <h2 className="text-2xl text-gray-800 mb-4">{language === 'ur' ? 'مضمون نہیں ملا' : 'Article Not Found'}</h2>
+            <p className="text-gray-600 mb-8">
+              {language === 'ur'
+                ? 'مطلوبہ مضمون موجود نہیں ہے یا منتقل کر دیا گیا ہے۔'
+                : 'The requested article does not exist or has been moved.'}
+            </p>
+            <a href={`/${language}`} className="inline-block py-2 px-4 bg-blue-500 text-white no-underline rounded hover:bg-blue-700">
+              {language === 'ur' ? 'ہوم پیج پر واپس جائیں' : 'Back to Home'}
+            </a>
+          </div>
         </div>
       </MainLayout>
     );

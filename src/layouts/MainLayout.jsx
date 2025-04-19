@@ -3,24 +3,20 @@ import Navbar from '@components/Navigation/Navbar';
 import Footer from '@components/Shared/Footer';
 import Slider from '@components/Navigation/Slider';
 import ErrorBoundary from '@components/Shared/ErrorBoundary';
-import './MainLayout.css';
+import { useDrawer } from '@context/DrawerContext';
 
-const MainLayout = ({ children, isDrawerOpen, onDrawerToggle }) => {
+const MainLayout = ({ children }) => {
+  const { isOpen, closeDrawer } = useDrawer();
+
   return (
-    <div className="main-layout">
-      <Navbar 
-        onDrawerToggle={onDrawerToggle}
-        isDrawerOpen={isDrawerOpen}
-      />
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
       <ErrorBoundary>
-        <main className="main-content">
+        <main className="flex-1  bg-gray-50">
           {children}
         </main>
       </ErrorBoundary>
-      <Slider 
-        open={isDrawerOpen}
-        onClose={() => onDrawerToggle(false)}
-      />
+      <Slider open={isOpen} onClose={closeDrawer} />
       <Footer />
     </div>
   );

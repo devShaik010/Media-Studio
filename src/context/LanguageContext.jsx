@@ -3,7 +3,7 @@ import { newsData, urduArticles } from '@data/newsData';
 import { useLocation } from 'react-router-dom';
 
 const defaultContext = {
-  language: 'en',
+  language: 'ur',
   toggleLanguage: () => {},
   articles: []
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@context/LanguageContext';
 import MainLayout from '@layouts/MainLayout';
-import './ErrorPage.css';
 
 const ErrorPage = () => {
   const { language } = useLanguage();
@@ -32,10 +31,10 @@ const ErrorPage = () => {
       isDrawerOpen={isDrawerOpen}
       onDrawerToggle={handleDrawerToggle}
     >
-      <div className="error-page">
-        <h1>{content[language]?.title}</h1>
-        <p>{content[language]?.message}</p>
-        <Link to={`/${language}`} className="back-home-button">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center">
+        <h1 className="text-2xl mb-4 text-gray-800">{content[language]?.title}</h1>
+        <p className="text-gray-600 mb-8">{content[language]?.message}</p>
+        <Link to={`/${language}`} className="inline-block py-2 px-4 bg-blue-500 text-white no-underline rounded hover:bg-blue-700">
           {content[language]?.backHome}
         </Link>
       </div>

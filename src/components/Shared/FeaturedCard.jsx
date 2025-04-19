@@ -22,7 +22,8 @@ const FeaturedCard = ({ imageUrl, title, description, category, time, className 
           {category && (
             <Typography 
               variant="caption" 
-              className="px-2 py-1 bg-theme-blue text-xs font-newsreader-medium"
+              // Replaced bg-theme-blue with Tailwind equivalent
+              className="px-2 py-1 bg-blue-600 text-xs font-medium" 
             >
               {category}
             </Typography>
@@ -30,7 +31,7 @@ const FeaturedCard = ({ imageUrl, title, description, category, time, className 
           {time && (
             <Typography 
               variant="caption" 
-              className="flex items-center text-white/70 text-sm font-newsreader-thin"
+              className="flex items-center text-white/70 text-sm font-thin"
             >
               <AccessTimeIcon className="w-4 h-4 mr-1" />
               {time}
@@ -39,13 +40,13 @@ const FeaturedCard = ({ imageUrl, title, description, category, time, className 
         </Box>
         <Typography 
           variant="h4" 
-          className="font-newsreader-bold mb-3 leading-tight"
+          className="font-bold mb-3 leading-tight"
         >
           {title}
         </Typography>
         <Typography 
           variant="body1" 
-          className="text-white/90 line-clamp-2 font-newsreader-regular"
+          className="text-white/90 line-clamp-2 font-normal"
         >
           {description}
         </Typography>

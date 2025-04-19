@@ -8,7 +8,7 @@ const ImageCard = ({ imageUrl, title, category, className }) => {
     >
       {/* Image Background */}
       <div 
-        className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-300 hover:scale-110"
+        className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
         style={{ 
           backgroundImage: `url(${imageUrl})`,
         }}
@@ -24,14 +24,16 @@ const ImageCard = ({ imageUrl, title, category, className }) => {
         {category && (
           <Typography 
             variant="caption" 
-            className="category-tag inline-block mb-2 px-2 py-1 bg-theme-blue font-newsreader-medium"
+            // Replaced bg-theme-blue and font-newsreader-medium with Tailwind equivalents
+            className="inline-block mb-2 px-2 py-1 bg-blue-600 font-medium text-xs"
           >
             {category}
           </Typography>
         )}
         <Typography 
           variant="h6" 
-          className="article-title hover:text-theme-light-blue transition-colors font-newsreader-semibold"
+          // Replaced article-title, hover:text-theme-light-blue, transition-colors and font-newsreader-semibold with Tailwind equivalents
+          className="text-lg font-semibold hover:text-blue-300 transition-colors duration-200"
         >
           {title}
         </Typography>
