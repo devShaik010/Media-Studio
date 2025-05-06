@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 
 const LatestNews = () => {
-  // Mock language and articles data since we don't have access to context
-  const [language, setLanguage] = useState('en');
+  // Comment out or remove the useArticles hook for now since we're using mock data
+  // const { articles, loading } = useArticles(); 
+  // const { language } = useLanguage();
   
+  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const isRTL = currentLanguage === 'ur';
+
   // Mock articles data
   const mockArticles = [
     {
@@ -87,30 +91,30 @@ const LatestNews = () => {
     }
   ];
   
-  const articles = mockArticles;
+  // Use mockArticles directly or rename this variable
+  const displayArticles = mockArticles;
   
   // State for selected article detail view
   const [selectedArticle, setSelectedArticle] = useState(null);
   
   // Language specific styling
-  const textFontFamily = language === 'ur' ? 'font-[--font-ur]' : 'font-sans';
-  const isRTL = language === 'ur';
+  const textFontFamily = currentLanguage === 'ur' ? 'font-[--font-ur]' : 'font-sans';
   const dirAttr = isRTL ? 'rtl' : 'ltr';
   
   // Toggle language for demo purposes
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'ur' : 'en');
+    setCurrentLanguage(currentLanguage === 'en' ? 'ur' : 'en');
   };
   
   // Get main featured article and secondary articles
-  const mainArticle = articles[0];
-  const secondaryArticles = articles.slice(1, 4);
-  const remainingArticles = articles.slice(4);
+  const mainArticle = displayArticles[0];
+  const secondaryArticles = displayArticles.slice(1, 4);
+  const remainingArticles = displayArticles.slice(4);
 
   // Format date based on language
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat(language === 'ur' ? 'ur-PK' : 'en-US', {
+    return new Intl.DateTimeFormat(currentLanguage === 'ur' ? 'ur-PK' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -123,13 +127,13 @@ const LatestNews = () => {
         {/* Header with title and language toggle */}
         <div className="flex justify-between items-center mb-8">
           <h2 className={`text-3xl font-bold text-gray-900 ${textFontFamily}`}>
-            {language === 'ur' ? 'تازہ ترین خبریں' : 'Latest News'}
+            {currentLanguage === 'ur' ? 'تازہ ترین خبریں' : 'Latest News'}
           </h2>
           <button 
             onClick={toggleLanguage} 
             className="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors"
           >
-            {language === 'ur' ? 'English' : 'اردو'}
+            {currentLanguage === 'ur' ? 'English' : 'اردو'}
           </button>
         </div>
         
@@ -168,7 +172,7 @@ const LatestNews = () => {
                 className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
                 onClick={() => setSelectedArticle(null)}
               >
-                {language === 'ur' ? 'واپس جائیں' : 'Back to News'}
+                {currentLanguage === 'ur' ? 'واپس جائیں' : 'Back to News'}
               </button>
             </div>
           </div>
@@ -247,7 +251,7 @@ const LatestNews = () => {
                 <div className="flex items-center mt-8 mb-6">
                   <BookmarkIcon className="w-5 h-5 mr-2 text-gray-700" />
                   <h3 className={`text-xl font-semibold text-gray-800 ${textFontFamily}`}>
-                    {language === 'ur' ? 'مزید خبریں' : 'More News'}
+                    {currentLanguage === 'ur' ? 'مزید خبریں' : 'More News'}
                   </h3>
                 </div>
                 
@@ -260,7 +264,7 @@ const LatestNews = () => {
                       timestamp={formatDate(article.publishDate)}
                       thumbnail={article.thumbnail}
                       onClick={() => setSelectedArticle(article)}
-                      language={language}
+                      language={currentLanguage}
                       textFontFamily={textFontFamily}
                       isRTL={isRTL}
                     />

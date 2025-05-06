@@ -62,6 +62,7 @@ const socialIcons = [
 
 const Slider = ({ open, onClose }) => {
   const { language } = useLanguage();
+  const isRTL = language === 'ur';
   const [expandedItem, setExpandedItem] = useState(null);
   const menuItems = getMenuItems(language);
 
@@ -92,8 +93,8 @@ const Slider = ({ open, onClose }) => {
           'transform',
           open 
             ? 'translate-x-0' 
-            : '-translate-x-full rtl:translate-x-full',
-          'ltr:left-0 rtl:right-0'
+            : isRTL ? 'translate-x-full' : '-translate-x-full',
+          isRTL ? 'right-0' : 'left-0'
         )}
         role="dialog"
         aria-modal="true"

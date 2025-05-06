@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from '../Shared/Image';
-// Removed import './ArticleContent.css';
 
-const ArticleContent = ({ article }) => {
+const ArticleContent = ({ article, defaultLanguage = 'en' }) => {
+  // Replace useLanguage with local state if the hook is not available
+  const [language] = useState(defaultLanguage);
+  const isRTL = language === 'ur';
+  
   if (!article) return null;
 
-  // Ensure content is an array before mapping
   // Ensure content is an array before mapping
   const content = Array.isArray(article.content) ? article.content : [];
 
   return (
-    <article className="max-w-4xl mx-auto px-4 py-8">
+    <article className={`max-w-4xl mx-auto px-4 py-8 ${isRTL ? 'text-right' : 'text-left'}`}>
       <div className="-mx-4 -mt-8 mb-8"> {/* Adjusted margins based on container padding */}
         <Image 
           src={article.heroImage} 
@@ -20,14 +22,14 @@ const ArticleContent = ({ article }) => {
         />
       </div>
       
-      <div className="mb-8"> {/* article-header */}
-        <div className="flex gap-4 mb-4"> {/* article-meta */}
-          <span className="text-blue-600 font-semibold uppercase">{article.category}</span> {/* article-category */}
-          <span className="text-gray-500"> {/* article-date */}
-            {new Date(article.publishDate).toLocaleDateString()}
+      <div className={`mb-8 ${isRTL ? 'rtl-content' : ''}`}> {/* article-header */}
+        <div className={`flex ${isRTL ? 'flex-row-reverse' : 'flex-row'} gap-4 mb-4`}> {/* article-meta */}
+          <span className={`text-blue-600 font-semibold uppercase ${isRTL ? 'font-ur text-lg' : ''}`}>{article.category}</span> {/* article-category */}
+          <span className="text-gray-500 numbers"> {/* article-date */}
+            {new Date(article.publishDate).toLocaleDateString(isRTL ? 'ur-PK' : 'en-US')}
           </span>
         </div>
-        <h1 className="text-4xl md:text-5xl leading-tight mb-6 text-gray-800">{article.title}</h1> {/* article-title */}
+        <h1 className={`text-4xl md:text-5xl leading-tight mb-6 text-gray-800 ${isRTL ? 'font-ur !leading-[1.8]' : ''}`}>{article.title}</h1> {/* article-title */}
         {article.author && (
           <div className="flex items-center gap-4 pt-4 border-t border-gray-200"> {/* article-author */}
             {article.author.avatar && (
@@ -45,7 +47,7 @@ const ArticleContent = ({ article }) => {
         )}
       </div>
 
-      <div className="text-lg md:text-xl leading-relaxed text-gray-800"> {/* article-body */}
+      <div className={`text-lg md:text-xl ${isRTL ? 'font-ur leading-[2]' : 'leading-relaxed'} text-gray-800`}> {/* article-body */}
         {content.map((block, index) => {
           switch (block.type) {
             case 'paragraph':

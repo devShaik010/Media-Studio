@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gulzar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&display=swap');
 @import "tailwindcss";
-
-
 
 @font-face {
   font-family: 'SkolarSans';
@@ -28,7 +28,8 @@
   --background-light: #f8f9fa;
   --border-color: #eee;
 
-  --font-ur: 'Gulzar', serif;
+  --font-ur: 'Noto Nastaliq Urdu', 'Gulzar', serif;
+  --line-height-ur: 2; /* Increased line height for Urdu */
 
   /* Noto Nastaliq Urdu font weights */
   --font-ur-regular: 400;
@@ -38,12 +39,46 @@
 }
 
 [dir="rtl"] {
-  font-family: 'Noto Nastaliq Urdu', serif;
+  font-family: var(--font-ur);
   font-weight: var(--font-ur-regular);
+  line-height: var(--line-height-ur);
+  text-align: right;
 }
 
 [dir="rtl"] * {
   font-family: var(--font-ur);
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--font-ur);
+  line-height: 1.8;
+}
+
+/* Fix Urdu number alignment */
+[dir="rtl"] time,
+[dir="rtl"] .numbers {
+  direction: ltr;
+  display: inline-block;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  button, 
+  [role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Add smooth transitions for language switching */
+.layout-transition {
+  transition: all 0.3s ease-in-out;
 }
 
 /* Override for English text elements even in RTL mode */
