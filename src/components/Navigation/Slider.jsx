@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '@context/LanguageContext';
 import {
   List,
   ListItem,
@@ -24,34 +23,17 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import clsx from 'clsx';
 
-// Define menu items based on language
-const getMenuItems = (lang) => {
-  if (lang === 'ur') {
-    return [
-      { text: 'ہوم', icon: <HomeOutlinedIcon />, path: '/ur' },
-      { 
-        text: 'دنیا', 
-        icon: <PublicOutlinedIcon />,
-        subItems: ['امریکہ', 'ایشیا', 'یورپ', 'مشرق وسطی']
-      },
-      { text: 'نشریات', icon: <RadioOutlinedIcon />, path: '/ur/broadcasts' },
-      { text: 'تازہ ترین', icon: <NewspaperOutlinedIcon />, path: '/ur/latest' },
-      { text: 'زبانیں', icon: <LanguageOutlinedIcon />, path: '/ur/languages' }
-    ];
-  }
-  
-  return [
-    { text: 'Home', icon: <HomeOutlinedIcon />, path: '/en' },
-    { 
-      text: 'World', 
-      icon: <PublicOutlinedIcon />,
-      subItems: ['Americas', 'Asia', 'Europe', 'Middle East']
-    },
-    { text: 'Broadcasts', icon: <RadioOutlinedIcon />, path: '/en/broadcasts' },
-    { text: 'Latest', icon: <NewspaperOutlinedIcon />, path: '/en/latest' },
-    { text: 'Languages', icon: <LanguageOutlinedIcon />, path: '/en/languages' }
-  ];
-};
+// Define menu items (English only)
+const menuItems = [
+  { text: 'Home', icon: <HomeOutlinedIcon />, path: '/' },
+  {
+    text: 'World',
+    icon: <PublicOutlinedIcon />,
+    subItems: ['Americas', 'Asia', 'Europe', 'Middle East'] // Sub-items are text only, no paths defined
+  },
+  { text: 'Broadcasts', icon: <RadioOutlinedIcon />, path: '/broadcasts' },
+  { text: 'Latest', icon: <NewspaperOutlinedIcon />, path: '/latest' }
+];
 
 const socialIcons = [
   { icon: <FacebookIcon />, link: 'https://facebook.com/voiceofamerica', label: 'Facebook' },
@@ -61,23 +43,16 @@ const socialIcons = [
 ];
 
 const Slider = ({ open, onClose }) => {
-  const { language } = useLanguage();
-  const isRTL = language === 'ur';
   const [expandedItem, setExpandedItem] = useState(null);
-  const menuItems = getMenuItems(language);
 
   const handleExpand = (text) => {
     setExpandedItem(expandedItem === text ? null : text);
   };
 
-  // Determine font based on language
-  const textFontFamily = language === 'ur' ? 'var(--font-ur)' : 'inherit';
-  const textSize = language === 'ur' ? 'text-base' : 'text-sm';
-
   return (
     <>
       {/* Overlay with improved opacity transition */}
-      <div 
+      <div
         className={clsx(
           'fixed inset-0 bg-gray-900/70 backdrop-blur-sm z-[1200] transition-opacity duration-300 ease-in-out',
           open ? 'opacity-100 visible' : 'opacity-0 invisible'
@@ -85,31 +60,31 @@ const Slider = ({ open, onClose }) => {
         onClick={onClose}
         aria-hidden={!open}
       />
-      
+
       {/* Slider Container - Updated with a more vibrant blue for better UX */}
-      <div 
+      <div
         className={clsx(
           'fixed top-0 bottom-0 w-80 bg-blue-700 z-[1300] shadow-xl flex flex-col transition-transform duration-300 ease-in-out',
           'transform',
-          open 
-            ? 'translate-x-0' 
-            : isRTL ? 'translate-x-full' : '-translate-x-full',
-          isRTL ? 'right-0' : 'left-0'
+          open
+            ? 'translate-x-0'
+            : '-translate-x-full',
+          'left-0' // Always left for LTR
         )}
         role="dialog"
         aria-modal="true"
         aria-labelledby="drawer-title"
       >
         {/* Header with improved border contrast */}
-        <div className="h-16 flex items-center justify-start px-4 border-b border-white/30 flex-shrink-0 rtl:justify-end">
+        <div className="h-16 flex items-center justify-start px-4 border-b border-white/30 flex-shrink-0">
           <IconButton
             onClick={onClose}
-            aria-label={language === 'ur' ? 'بند کریں' : 'Close menu'}
+            aria-label="Close menu"
             className="!text-white hover:!bg-white/20 !transition-colors"
           >
             <CloseIcon />
           </IconButton>
-          <h2 id="drawer-title" className="sr-only">{language === 'ur' ? 'نیویگیشن مینو' : 'Navigation Menu'}</h2>
+          <h2 id="drawer-title" className="sr-only">Navigation Menu</h2>
         </div>
 
         {/* Menu Items List with improved active states */}
@@ -117,11 +92,11 @@ const Slider = ({ open, onClose }) => {
           {menuItems.map((item) => (
             <React.Fragment key={item.text}>
               <ListItem disablePadding>
-                <ListItemButton 
+                <ListItemButton
                   onClick={() => item.subItems ? handleExpand(item.text) : onClose()}
                   className={clsx(
                     'flex items-center gap-4 px-6 py-3 text-white cursor-pointer transition-all duration-200 ease-in-out',
-                    'border-l-4 rtl:border-l-0 rtl:border-r-4',
+                    'border-l-4', // Always left border for LTR
                     // Improved active state with clearer visual indication
                     expandedItem === item.text || (!item.subItems && window.location.pathname === item.path)
                       ? 'border-yellow-400 bg-blue-800'
@@ -136,10 +111,7 @@ const Slider = ({ open, onClose }) => {
                   </ListItemIcon>
                   <ListItemText
                     primary={item.text}
-                    className={clsx('!text-white', textSize)}
-                    primaryTypographyProps={{
-                      style: { fontFamily: textFontFamily }
-                    }}
+                    className={clsx('!text-white', 'text-sm')} // Always text-sm for English
                   />
                   {item.subItems && (
                     <span className="ml-auto text-white">
@@ -148,28 +120,25 @@ const Slider = ({ open, onClose }) => {
                   )}
                 </ListItemButton>
               </ListItem>
-              
+
               {/* Sub Menu with improved visibility and active states */}
               {item.subItems && (
                 <Collapse in={expandedItem === item.text} timeout="auto" unmountOnExit>
-                  <List disablePadding className="bg-blue-900 pl-10 rtl:pr-10 rtl:pl-0">
+                  <List disablePadding className="bg-blue-900 pl-10"> {/* Always pl-10 for LTR */}
                     {item.subItems.map((subItem) => (
                       <ListItem key={subItem} disablePadding>
                         <ListItemButton
                           onClick={onClose}
                           className={clsx(
                             'px-6 py-2 text-white transition-all duration-200 ease-in-out',
-                            textSize,
-                            'hover:bg-blue-800 hover:border-l-2 hover:border-yellow-400 rtl:hover:border-l-0 rtl:hover:border-r-2'
+                            'text-sm', // Always text-sm for English
+                            'hover:bg-blue-800 hover:border-l-2 hover:border-yellow-400' // Always left border for LTR
                           )}
                           sx={{ pl: 4 }}
                         >
                           <ListItemText
                             primary={subItem}
                             className="!text-white"
-                            primaryTypographyProps={{
-                              style: { fontFamily: textFontFamily }
-                            }}
                           />
                         </ListItemButton>
                       </ListItem>
@@ -185,9 +154,9 @@ const Slider = ({ open, onClose }) => {
         <div className="px-6 py-4 border-t border-white/30 bg-blue-800 flex-shrink-0">
           <p className={clsx(
             "text-white text-sm mb-3 font-medium",
-            language === 'ur' ? 'font-[--font-ur] text-base' : 'font-sans'
+            'font-sans' // Always font-sans for English
           )}>
-            {language === 'ur' ? 'ہمیں فالو کریں' : 'Follow us'}
+            Follow us
           </p>
           <div className="flex justify-start gap-3">
             {socialIcons.map((social, index) => (

@@ -1,30 +1,46 @@
 import React from 'react';
 import Image from '@components/Shared/Image';
 
-const NewsCard = ({ category, headline, timestamp, thumbnail, onClick }) => {
+const NewsCard = ({ article, onClick }) => {
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
   return (
-    <article onClick={onClick} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden cursor-pointer">
-      <div className="aspect-[16/9] overflow-hidden">
+    <div 
+      className="cursor-pointer group bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
+      onClick={onClick}
+    >
+      <div className="aspect-video overflow-hidden">
         <img
-          src={thumbnail}
-          alt={headline}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          src={article.thumbnail_url || article.main_image_url}
+          alt={article.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           loading="lazy"
         />
       </div>
       <div className="p-4">
-        <span className="inline-block px-2.5 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full mb-2">
-          {category}
-        </span>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors">
-          {headline}
-        </h3>
-        <time className="text-sm text-gray-500">
-          {timestamp}
-        </time>
+        <h4 className="text-md font-semibold text-gray-900 group-hover:text-blue-700 transition-colors duration-200 leading-snug mb-2">
+          {article.title}
+        </h4>
+        <div className="flex items-center text-xs text-gray-500">
+          <ClockIcon className="w-3 h-3 mr-1" />
+          <span>{formatDate(article.publish_date)}</span>
+        </div>
       </div>
-    </article>
+    </div>
   );
 };
+
+const ClockIcon = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12 6 12 12 16 14"></polyline>
+  </svg>
+);
 
 export default NewsCard;

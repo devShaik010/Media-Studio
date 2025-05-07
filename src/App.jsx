@@ -1,25 +1,23 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import RootLayout from '@layouts/RootLayout';
+import MainLayout from '@layouts/MainLayout';
 import Home from '@pages/Home';
 import Article from '@pages/Article';
 import CategoryPage from '@pages/CategoryPage';
 import ErrorPage from '@pages/ErrorPage';
-import { DrawerProvider } from '@context/DrawerContext';
 
-function App() {
+const App = () => {
   return (
-    <DrawerProvider>
-      <Routes>
-        <Route path="/" element={<Navigate to="/ur" replace />} />
-        <Route path="/ur" element={<Home />} />
-        <Route path="/en" element={<Home />} />
-        <Route path="/article/:slug" element={<Article />} />
-        <Route path="/:lang/article/:slug" element={<Article />} />
-        <Route path="/:lang/category/:categoryId" element={<CategoryPage />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </DrawerProvider>
+    <Routes>
+      <Route element={<RootLayout />}>
+        <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+        <Route path="/article/:id" element={<MainLayout><Article /></MainLayout>} />
+        <Route path="/category/:categoryId" element={<MainLayout><CategoryPage /></MainLayout>} />
+        <Route path="*" element={<MainLayout><ErrorPage /></MainLayout>} />
+      </Route>
+    </Routes>
   );
-}
+};
 
 export default App;

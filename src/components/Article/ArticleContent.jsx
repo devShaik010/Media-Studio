@@ -1,41 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Image from '../Shared/Image';
 
-const ArticleContent = ({ article, defaultLanguage = 'en' }) => {
-  // Replace useLanguage with local state if the hook is not available
-  const [language] = useState(defaultLanguage);
-  const isRTL = language === 'ur';
-  
+const ArticleContent = ({ article }) => {
+
   if (!article) return null;
 
   // Ensure content is an array before mapping
   const content = Array.isArray(article.content) ? article.content : [];
 
   return (
-    <article className={`max-w-4xl mx-auto px-4 py-8 ${isRTL ? 'text-right' : 'text-left'}`}>
+    <article className="max-w-4xl mx-auto px-4 py-8 text-left">
       <div className="-mx-4 -mt-8 mb-8"> {/* Adjusted margins based on container padding */}
-        <Image 
-          src={article.heroImage} 
+        <Image
+          src={article.heroImage}
           alt={article.title}
           className="w-full h-auto max-h-[500px] object-cover" // Tailwind classes for hero image
           fallbackSrc="https://placehold.co/1200x600?text=Article+Image"
         />
       </div>
-      
-      <div className={`mb-8 ${isRTL ? 'rtl-content' : ''}`}> {/* article-header */}
-        <div className={`flex ${isRTL ? 'flex-row-reverse' : 'flex-row'} gap-4 mb-4`}> {/* article-meta */}
-          <span className={`text-blue-600 font-semibold uppercase ${isRTL ? 'font-ur text-lg' : ''}`}>{article.category}</span> {/* article-category */}
+
+      <div className="mb-8"> {/* article-header */}
+        <div className="flex flex-row gap-4 mb-4"> {/* article-meta */}
+          <span className="text-blue-600 font-semibold uppercase">{article.category}</span> {/* article-category */}
           <span className="text-gray-500 numbers"> {/* article-date */}
-            {new Date(article.publishDate).toLocaleDateString(isRTL ? 'ur-PK' : 'en-US')}
+            {new Date(article.publishDate).toLocaleDateString('en-US')}
           </span>
         </div>
-        <h1 className={`text-4xl md:text-5xl leading-tight mb-6 text-gray-800 ${isRTL ? 'font-ur !leading-[1.8]' : ''}`}>{article.title}</h1> {/* article-title */}
+        <h1 className="text-4xl md:text-5xl leading-tight mb-6 text-gray-800">{article.title}</h1> {/* article-title */}
         {article.author && (
           <div className="flex items-center gap-4 pt-4 border-t border-gray-200"> {/* article-author */}
             {article.author.avatar && (
-              <img 
-                src={article.author.avatar} 
-                alt={article.author.name} 
+              <img
+                src={article.author.avatar}
+                alt={article.author.name}
                 className="w-12 h-12 rounded-full object-cover" // author-avatar
               />
             )}
@@ -47,19 +44,19 @@ const ArticleContent = ({ article, defaultLanguage = 'en' }) => {
         )}
       </div>
 
-      <div className={`text-lg md:text-xl ${isRTL ? 'font-ur leading-[2]' : 'leading-relaxed'} text-gray-800`}> {/* article-body */}
+      <div className="text-lg md:text-xl leading-relaxed text-gray-800"> {/* article-body */}
         {content.map((block, index) => {
           switch (block.type) {
             case 'paragraph':
               // Added mb-6 directly to p tag
-              return <p key={index} className="mb-6">{block.text}</p>; 
+              return <p key={index} className="mb-6">{block.text}</p>;
             case 'quote':
               return (
                 // Added Tailwind classes for blockquote and cite
-                <blockquote key={index} className="my-8 px-8 py-6 bg-gray-50 border-l-4 border-blue-600"> 
+                <blockquote key={index} className="my-8 px-8 py-6 bg-gray-50 border-l-4 border-blue-600">
                   <p className="mb-4">{block.text}</p> {/* Added margin bottom to quote text */}
                   {block.author && (
-                    <cite className="block mt-4 text-sm text-gray-500"> 
+                    <cite className="block mt-4 text-sm text-gray-500">
                       {block.author}
                       {block.role && <span>, {block.role}</span>}
                     </cite>
@@ -76,7 +73,7 @@ const ArticleContent = ({ article, defaultLanguage = 'en' }) => {
         <div className="flex flex-wrap gap-2 mt-8 pt-8 border-t border-gray-200"> {/* article-tags */}
           {article.tags.map(tag => (
             // Added Tailwind classes for tag
-            <span key={tag} className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-500">#{tag}</span> 
+            <span key={tag} className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-500">#{tag}</span>
           ))}
         </div>
       )}

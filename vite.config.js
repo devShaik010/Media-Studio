@@ -4,18 +4,20 @@ import path from 'path';
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [react(),tailwindcss(),],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@styles': path.resolve(__dirname, './src/styles'),
+      '@config': path.resolve(__dirname, './src/config'),
       '@layouts': path.resolve(__dirname, './src/layouts'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@data': path.resolve(__dirname, './src/data'),
       '@assets': path.resolve(__dirname, './src/assets'),
-      '@context': path.resolve(__dirname, './src/context')
+      '@context': path.resolve(__dirname, './src/context'),
+      '@lib': path.resolve(__dirname, './src/lib')
     }
   },
   server: {
@@ -25,5 +27,12 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true
-  }
+  },
+  optimizeDeps: {
+    include: [
+      '@fonts/noto-sans-arabic',
+      '@supabase/supabase-js'
+    ]
+  },
+  assetsInclude: ['**/*.woff2']
 });

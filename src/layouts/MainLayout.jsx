@@ -1,23 +1,18 @@
 import React from 'react';
 import Navbar from '@components/Navigation/Navbar';
-import Footer from '@components/Shared/Footer';
 import Slider from '@components/Navigation/Slider';
-import ErrorBoundary from '@components/Shared/ErrorBoundary';
 import { useDrawer } from '@context/DrawerContext';
 
 const MainLayout = ({ children }) => {
   const { isOpen, closeDrawer } = useDrawer();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
-      <ErrorBoundary>
-        <main className="flex-1  bg-gray-50">
-          {children}
-        </main>
-      </ErrorBoundary>
+      <main className="flex-grow">
+        {children}
+      </main>
       <Slider open={isOpen} onClose={closeDrawer} />
-      <Footer />
     </div>
   );
 };
