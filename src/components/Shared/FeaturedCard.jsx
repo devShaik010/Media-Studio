@@ -30,15 +30,15 @@ const FeaturedCard = ({ imageUrl, title, description, category, time, className 
           )}
           {time && (
             <Typography 
-              variant="caption" 
+              variant="caption"
               className="flex items-center text-white/70 text-sm font-thin"
             >
-              <AccessTimeIcon className="w-4 h-4 mr-1" />
+              <ClockIcon className="w-4 h-4 mr-1" /> {/* Use shared ClockIcon */}
               {time}
             </Typography>
           )}
         </Box>
-        <Typography 
+        <Typography
           variant="h4" 
           className="font-bold mb-3 leading-tight"
         >

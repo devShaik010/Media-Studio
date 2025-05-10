@@ -26,13 +26,8 @@ import clsx from 'clsx';
 // Define menu items (English only)
 const menuItems = [
   { text: 'Home', icon: <HomeOutlinedIcon />, path: '/' },
-  {
-    text: 'World',
-    icon: <PublicOutlinedIcon />,
-    subItems: ['Americas', 'Asia', 'Europe', 'Middle East'] // Sub-items are text only, no paths defined
-  },
+  { text: 'World', icon: <PublicOutlinedIcon />, path: '/category/world' }, // Assuming 'world' is a category ID
   { text: 'Broadcasts', icon: <RadioOutlinedIcon />, path: '/broadcasts' },
-  { text: 'Latest', icon: <NewspaperOutlinedIcon />, path: '/latest' }
 ];
 
 const socialIcons = [
@@ -90,63 +85,30 @@ const Slider = ({ open, onClose }) => {
         {/* Menu Items List with improved active states */}
         <List className="py-2 flex-grow overflow-y-auto">
           {menuItems.map((item) => (
-            <React.Fragment key={item.text}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  onClick={() => item.subItems ? handleExpand(item.text) : onClose()}
-                  className={clsx(
-                    'flex items-center gap-4 px-6 py-3 text-white cursor-pointer transition-all duration-200 ease-in-out',
-                    'border-l-4', // Always left border for LTR
-                    // Improved active state with clearer visual indication
-                    expandedItem === item.text || (!item.subItems && window.location.pathname === item.path)
-                      ? 'border-yellow-400 bg-blue-800'
-                      : 'border-transparent hover:bg-blue-600 hover:border-blue-300',
-                    'focus:bg-blue-800 focus:border-yellow-400'
-                  )}
-                  component={item.path ? Link : 'button'}
-                  to={item.path}
-                >
-                  <ListItemIcon className="!text-white !min-w-[auto]">
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.text}
-                    className={clsx('!text-white', 'text-sm')} // Always text-sm for English
-                  />
-                  {item.subItems && (
-                    <span className="ml-auto text-white">
-                      {expandedItem === item.text ? <ExpandLess /> : <ExpandMore />}
-                    </span>
-                  )}
-                </ListItemButton>
-              </ListItem>
-
-              {/* Sub Menu with improved visibility and active states */}
-              {item.subItems && (
-                <Collapse in={expandedItem === item.text} timeout="auto" unmountOnExit>
-                  <List disablePadding className="bg-blue-900 pl-10"> {/* Always pl-10 for LTR */}
-                    {item.subItems.map((subItem) => (
-                      <ListItem key={subItem} disablePadding>
-                        <ListItemButton
-                          onClick={onClose}
-                          className={clsx(
-                            'px-6 py-2 text-white transition-all duration-200 ease-in-out',
-                            'text-sm', // Always text-sm for English
-                            'hover:bg-blue-800 hover:border-l-2 hover:border-yellow-400' // Always left border for LTR
-                          )}
-                          sx={{ pl: 4 }}
-                        >
-                          <ListItemText
-                            primary={subItem}
-                            className="!text-white"
-                          />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-              )}
-            </React.Fragment>
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton
+                onClick={onClose} // Close drawer on item click
+                className={clsx(
+                  'flex items-center gap-4 px-6 py-3 text-white cursor-pointer transition-all duration-200 ease-in-out',
+                  'border-l-4', // Always left border for LTR
+                  // Improved active state with clearer visual indication
+                  window.location.pathname === item.path
+                    ? 'border-yellow-400 bg-blue-800'
+                    : 'border-transparent hover:bg-blue-600 hover:border-blue-300',
+                  'focus:bg-blue-800 focus:border-yellow-400'
+                )}
+                component={Link}
+                to={item.path}
+              >
+                <ListItemIcon className="!text-white !min-w-[auto]">
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  className={clsx('!text-white', 'text-sm')} // Always text-sm for English
+                />
+              </ListItemButton>
+            </ListItem>
           ))}
         </List>
 

@@ -21,7 +21,6 @@ const Footer = () => {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/broadcasts', label: 'Broadcasts' },
-    { path: '/latest', label: 'Latest' }
   ];
 
   return (

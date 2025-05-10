@@ -1,18 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Image from '@components/Shared/Image';
+import CustomImage from '@components/Shared/Image';
 import { useNewsData } from '../../hooks/useNewsData';
+import { formatDate } from '@utils/dateFormatter';
 
 const Hero = () => {
   const { heroArticle, topStories, loading, error } = useNewsData();
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   if (error) {
     return (
@@ -61,8 +54,8 @@ const Hero = () => {
               >
                 {/* Main Article Content */}
                 <div className="relative h-[240px] sm:h-[320px] overflow-hidden">
-                  <Image 
-                    src={heroArticle.main_image_url || heroArticle.thumbnail_url} 
+                  <CustomImage
+                    src={heroArticle.main_image_url || heroArticle.thumbnail_url}
                     alt={heroArticle.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -95,9 +88,9 @@ const Hero = () => {
                     className="group block hover:bg-blue-50 transition-colors duration-200"
                   >
                     <article className="flex p-4">
-                      <div className="mr-4 flex-shrink-0 w-24 h-20 rounded-lg overflow-hidden">
-                        <Image 
-                          src={article.thumbnail_url || article.main_image_url} 
+                    <div className="mr-4 flex-shrink-0 w-24 h-20 rounded-lg overflow-hidden">
+                        <CustomImage
+                          src={article.thumbnail_url || article.main_image_url}
                           alt={article.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchArticleById } from '../services/articlesService';
 import { format } from 'date-fns';
+import { arSA } from 'date-fns/locale'; // Import locale for date formatting
+import CustomImage from '@components/Shared/CustomImage'; // Import CustomImage
 
 const Article = () => {
   const { id } = useParams();
@@ -56,7 +58,7 @@ const Article = () => {
         {/* Hero Image */}
         {(article.main_image_url || article.thumbnail_url) && (
           <div className="mb-6">
-            <img
+            <CustomImage
               src={article.main_image_url || article.thumbnail_url}
               alt={article.title}
               className="w-full h-[400px] object-cover rounded-lg shadow-lg"
@@ -65,11 +67,11 @@ const Article = () => {
         )}
 
         {/* Article Header with subtle bottom border */}
-        <header className="mb-8 relative pb-6">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">{article.title}</h1>
+        <header className="mb-8 relative pb-6" dir="rtl">
+          <h1 className="text-4xl font-bold text-gray-900 mb-3 text-right">{article.title}</h1> {/* Added text-right */}
           <div className="flex items-center justify-end text-sm text-gray-600">
-            <time className="numbers" dateTime={article.publish_date} lang="en">
-              {format(new Date(article.publish_date), 'MMMM dd, yyyy')}
+            <time className="numbers" dateTime={article.publish_date} lang="ur"> {/* Changed lang to ur */}
+              {article.publish_date ? format(new Date(article.publish_date), 'PPP', { locale: arSA }) : 'N/A'}
             </time>
           </div>
           {/* Subtle bottom line that doesn't span full width */}
@@ -77,19 +79,19 @@ const Article = () => {
         </header>
 
         {/* Article Content */}
-        <div className="prose prose-lg max-w-none">
+        <div className="prose prose-lg max-w-none text-right" dir="rtl"> {/* Added text-right */}
           <div
-            className="mb-8 leading-[2.5]"
+            className="mb-8 leading-[2.5]" // leading-[2.5] might be for line height in Urdu
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </div>
 
         {/* YouTube Video Section */}
         {article.youtube_link && (
-          <div className="mt-8">
+          <div className="mt-8" dir="rtl"> {/* Added dir="rtl" for consistency */}
             {/* Video Title with matching theme */}
-            <h3 className="text-xl font-bold mb-4 flex items-center">
-              <div className="w-1 h-6 bg-blue-800 ml-2"></div>
+            <h3 className="text-xl font-bold mb-4 flex items-center text-right"> {/* Added text-right */}
+              <div className="w-1 h-6 bg-blue-800 ml-2"></div> {/* ml-2 will appear on the right in RTL */}
               <span>متعلقہ ویڈیو</span>
             </h3>
             <div className="aspect-w-16 aspect-h-9">

@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from './Image';
+import CustomImage from './CustomImage';
 // Removed import './NewsCard.css';
 
 const NewsCard = ({ category, headline, timestamp, thumbnail, source }) => {
@@ -8,8 +8,8 @@ const NewsCard = ({ category, headline, timestamp, thumbnail, source }) => {
     <article className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden">
       {/* Thumbnail area */}
       <div className="aspect-video overflow-hidden">
-        <Image 
-          src={thumbnail} 
+        <CustomImage
+          src={thumbnail}
           alt={headline}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           fallbackSrc="https://placehold.co/600x400?text=News+Image"

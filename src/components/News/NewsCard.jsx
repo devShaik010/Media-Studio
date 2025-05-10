@@ -1,29 +1,28 @@
 import React from 'react';
-import Image from '@components/Shared/Image';
+import CustomImage from '../Shared/CustomImage';
+import { formatDate } from '@utils/dateFormatter';
+import ClockIcon from '../Shared/ClockIcon';
 
 const NewsCard = ({ article, onClick }) => {
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
   return (
-    <div 
+    <div
       className="cursor-pointer group bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
       onClick={onClick}
     >
       <div className="aspect-video overflow-hidden">
-        <img
+        <CustomImage
           src={article.thumbnail_url || article.main_image_url}
           alt={article.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          loading="lazy"
+          fallbackSrc="/placeholder.png"
         />
       </div>
       <div className="p-4">
+        {(article.category_name || article.category || article.category_id != null) && (
+          <span className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full mb-2">
+            {article.category_name || article.category || (article.category_id ? `Category ID: ${article.category_id}` : 'Uncategorized')}
+          </span>
+        )}
         <h4 className="text-md font-semibold text-gray-900 group-hover:text-blue-700 transition-colors duration-200 leading-snug mb-2">
           {article.title}
         </h4>
@@ -35,12 +34,5 @@ const NewsCard = ({ article, onClick }) => {
     </div>
   );
 };
-
-const ClockIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"></circle>
-    <polyline points="12 6 12 12 16 14"></polyline>
-  </svg>
-);
 
 export default NewsCard;

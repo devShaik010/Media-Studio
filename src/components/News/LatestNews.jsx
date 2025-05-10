@@ -70,7 +70,7 @@ const LatestNews = () => {
 
         {/* News Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {[heroArticle, ...topStories].map(article => (
+          {latestNews.map(article => (
             <NewsCard
               key={article.id}
               article={article}

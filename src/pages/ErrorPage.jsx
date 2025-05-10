@@ -11,17 +11,8 @@ const ErrorPage = () => {
     backHome: 'Back to Home'
   };
 
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
-
   return (
-    <MainLayout
-      isDrawerOpen={isDrawerOpen}
-      onDrawerToggle={handleDrawerToggle}
-    >
+    <MainLayout>
       <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center">
         <h1 className="text-2xl mb-4 text-gray-800">{content.title}</h1>
         <p className="text-gray-600 mb-8">{content.message}</p>

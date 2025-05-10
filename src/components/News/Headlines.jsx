@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNewsData } from '../../hooks/useNewsData';
+import { formatDate } from '@utils/dateFormatter';
+import CustomImage from '@components/Shared/Image';
+import ClockIcon from '@components/Shared/ClockIcon';
 
 const Headlines = () => {
   const { heroArticle, topStories, loading, error } = useNewsData();
@@ -68,18 +71,9 @@ const Headlines = () => {
   return (
     <div className="py-8 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold">
+        <h2 className="text-2xl font-semibold mb-6">
           Headlines
         </h2>
-        <div className="flex items-center justify-between mb-6">
-          <Link
-            to="/latest"
-            className="text-blue-600 flex items-center text-sm font-medium hover:text-blue-800 transition-colors"
-          >
-            View All
-            <ArrowRightIcon className="w-4 h-4 ml-1" />
-          </Link>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
           {/* Main featured article */}
@@ -89,11 +83,10 @@ const Headlines = () => {
               className="group block h-full bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
             >
               <div className="relative aspect-video lg:aspect-[16/9] overflow-hidden">
-                <img
+                <CustomImage
                   src={heroArticle.main_image_url || heroArticle.thumbnail_url}
                   alt={heroArticle.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
                 />
                 <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
                   FEATURED
@@ -124,11 +117,10 @@ const Headlines = () => {
                   className="group bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex"
                 >
                   <div className="w-1/3 aspect-square overflow-hidden">
-                    <img
+                    <CustomImage
                       src={article.thumbnail_url || article.main_image_url}
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
                     />
                   </div>
                   <div className="p-3 w-2/3">
@@ -148,27 +140,5 @@ const Headlines = () => {
     </div>
   );
 };
-
-const formatDate = (dateString) => {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
-
-const ClockIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"></circle>
-    <polyline points="12 6 12 12 16 14"></polyline>
-  </svg>
-);
-
-const ArrowRightIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12h14"></path>
-    <path d="m12 5 7 7-7 7"></path>
-  </svg>
-);
 
 export default Headlines;

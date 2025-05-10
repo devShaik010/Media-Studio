@@ -62,7 +62,6 @@ export const useNewsData = () => {
     topStories,
     latestNews,
     moreStories,
-    getArticleById,
     loading,
     error
   };

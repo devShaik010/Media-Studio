@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Image = ({ src, alt, className, fallback = '', ...props }) => {
+const Image = ({ src, alt, className = '', fallbackSrc = '/placeholder.png' }) => {
   const handleError = (e) => {
-    e.target.src = fallback;
+    e.target.src = fallbackSrc;
   };
 
   return (
@@ -11,7 +11,7 @@ const Image = ({ src, alt, className, fallback = '', ...props }) => {
       alt={alt}
       className={className}
       onError={handleError}
-      {...props}
+      loading="lazy"
     />
   );
 };

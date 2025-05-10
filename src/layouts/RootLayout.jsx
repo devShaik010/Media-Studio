@@ -10,11 +10,7 @@ const RootLayout = () => {
     <DrawerProvider>
       <ErrorBoundary>
         <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow container mx-auto px-4">
-            <Outlet />
-          </main>
-          <Footer />
+          <Outlet />
         </div>
       </ErrorBoundary>
     </DrawerProvider>
