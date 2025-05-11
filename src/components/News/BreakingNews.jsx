@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-const HomeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955a.75.75 0 011.06 0l8.955 8.955M3 11.25V21.75a.75.75 0 00.75.75h4.5a.75.75 0 00.75-.75v-6a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v6a.75.75 0 00.75.75h4.5a.75.75 0 00.75-.75V11.25" />
-  </svg>
-);
+// HomeIcon component is no longer needed
 
 const BreakingNews = ({ newsItems }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,16 +31,16 @@ const BreakingNews = ({ newsItems }) => {
 
   return (
     <div className="max-w-4xl mx-auto my-2 shadow-md flex items-stretch h-12">
-      {/* Home Icon */}
-      <div className="bg-red-600 text-white flex items-center justify-center p-3 rounded-l-md">
-        <HomeIcon />
+      {/* Breaking News Label */}
+      <div className="bg-red-600 text-white flex items-center justify-center px-4 py-2 rounded-l-md font-semibold">
+        Breaking News
       </div>
 
       {/* News Content - Urdu Support */}
       <div
         dir="rtl"
         lang="ur"
-        className="bg-white text-gray-800 flex-grow flex items-center overflow-hidden px-4 py-1 font-urdu"
+        className="bg-white text-gray-800 flex-grow flex items-center overflow-hidden px-4 py-1 font-urdu" // Adjusted padding
         aria-live="polite"
       >
         <Link

@@ -78,13 +78,21 @@ const Home = () => {
       {/* Breaking News Carousel at the top */}
       {breakingNewsItems.length > 0 && <BreakingNews newsItems={breakingNewsItems} />}
 
-      {/* Original 3-Column Layout */}
+      {/* Carousel for mobile, shown above the 3-column layout */}
+      <div className="md:hidden mt-4">
+        <h3 className="text-xl font-bold text-gray-800 mb-3 pb-2 border-b border-red-500 font-english">Featured News</h3>
+        <div className="aspect-[16/9]">
+          <NewsCarousel articles={carouselArticles} />
+        </div>
+      </div>
+
+      {/* Original 3-Column Layout - Carousel hidden on mobile here */}
       <div className="grid grid-cols-1 md:grid-cols-7 gap-4 mt-4">
         {/* Left column */}
         <div className="md:col-span-2 space-y-4">
           <h3 className="text-xl font-bold text-gray-800 mb-3 pb-2 border-b border-red-500 font-english">Top Stories</h3>
           {leftColumnArticles.map((article) => (
-            <div key={`left-col-${article.id}`} className="h-48"> 
+            <div key={`left-col-${article.id}`} className="h-48">
               <NewsCard
                 article={article}
                 onClick={() => navigate(`/article/${article.id}`)}
@@ -92,20 +100,20 @@ const Home = () => {
             </div>
           ))}
         </div>
-        
-        {/* Center carousel */}
-        <div className="md:col-span-3">
+
+        {/* Center carousel - hidden on mobile, visible on md and up */}
+        <div className="hidden md:block md:col-span-3">
           <h3 className="text-xl font-bold text-gray-800 mb-3 pb-2 border-b border-red-500 font-english">Featured News</h3>
-          <div className="aspect-[16/9]"> 
+          <div className="aspect-[16/9]">
             <NewsCarousel articles={carouselArticles} />
           </div>
         </div>
-        
+
         {/* Right column */}
-        <div className="md:col-span-2 space-y-4"> 
+        <div className="md:col-span-2 space-y-4">
           <h3 className="text-xl font-bold text-gray-800 mb-3 pb-2 border-b border-red-500 font-english">More News</h3>
           {rightColumnArticles.map((article) => (
-            <div key={`right-col-${article.id}`} className="h-48"> 
+            <div key={`right-col-${article.id}`} className="h-48">
               <NewsCard
                 article={article}
                 onClick={() => navigate(`/article/${article.id}`)}

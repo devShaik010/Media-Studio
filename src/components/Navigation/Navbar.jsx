@@ -11,7 +11,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import { useDrawer } from '@context/DrawerContext';
 import CustomImage from '@components/Shared/CustomImage';
 import SearchModal from '@components/Shared/SearchModal'; // Added SearchModal import
-import mfpLogo from '@assets/images/logo-removebg-preview.png';
+import mfpLogo from '/mfpLogo.png'; // Updated path to public directory
 import clsx from 'clsx';
 
 const Navbar = () => {
