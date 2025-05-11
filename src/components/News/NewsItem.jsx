@@ -9,7 +9,7 @@ const NewsItem = ({ source, headline, thumbnail }) => {
 
   return (
     // News item container with styling
-    <article className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden">
+    <article className="bg-white shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden">
       {/* Thumbnail area */}
       <div className="aspect-video overflow-hidden">
         <img

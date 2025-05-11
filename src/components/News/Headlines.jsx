@@ -14,7 +14,7 @@ const Headlines = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="animate-pulse space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white rounded-lg h-32"></div>
+              <div key={i} className="bg-white h-32"></div>
             ))}
           </div>
         </div>
@@ -26,7 +26,7 @@ const Headlines = () => {
     return (
       <div className="py-8 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+          <div className="bg-white shadow-sm p-8 text-center">
             <h3 className="text-lg font-medium text-gray-900 mb-2">
               News Unavailable
             </h3>
@@ -43,7 +43,7 @@ const Headlines = () => {
     return (
       <div className="py-8 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+          <div className="bg-white shadow-sm p-8 text-center">
             <svg
               className="mx-auto h-12 w-12 text-gray-400"
               fill="none"
@@ -80,7 +80,7 @@ const Headlines = () => {
           <div className="lg:col-span-8">
             <Link
               to={`/article/${heroArticle.id}`}
-              className="group block h-full bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
+              className="group block h-full bg-white shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
             >
               <div className="relative aspect-video lg:aspect-[16/9] overflow-hidden">
                 <CustomImage
@@ -114,7 +114,7 @@ const Headlines = () => {
                 <Link
                   key={article.id}
                   to={`/article/${article.id}`}
-                  className="group bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex"
+                  className="group bg-white shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex"
                 >
                   <div className="w-1/3 aspect-square overflow-hidden">
                     <CustomImage

@@ -11,7 +11,7 @@ const Hero = () => {
     return (
       <section className="w-full bg-gray-50 mt-[72px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-white rounded-xl shadow-sm p-6 text-center text-red-600">
+          <div className="bg-white shadow-sm p-6 text-center text-red-600">
             {error}
           </div>
         </div>
@@ -23,7 +23,7 @@ const Hero = () => {
     return (
       <section className="w-full bg-gray-50 mt-[72px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="animate-pulse bg-white rounded-xl shadow-sm w-full h-[350px] flex items-center justify-center">
+          <div className="animate-pulse bg-white shadow-sm w-full h-[350px] flex items-center justify-center">
             <p className="text-gray-400">Loading headlines...</p>
           </div>
         </div>
@@ -35,8 +35,8 @@ const Hero = () => {
     <section className="w-full bg-gray-50 mt-[72px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         {/* Breaking News Ticker */}
-        <div className="mb-6 bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center overflow-hidden">
-          <span className="font-bold text-sm mr-3 bg-white text-blue-700 px-2 py-0.5 rounded">BREAKING</span>
+        <div className="mb-6 bg-blue-700 text-white px-4 py-2 flex items-center overflow-hidden">
+          <span className="font-bold text-sm mr-3 bg-white text-blue-700 px-2 py-0.5">BREAKING</span>
           <div className="animate-marquee whitespace-nowrap">
             <span className="text-sm">
               {heroArticle.title} • {formatDate(heroArticle.publish_date)}
@@ -47,7 +47,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Featured Article */}
           <div className="lg:col-span-2">
-            <article className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <article className="bg-white shadow-sm overflow-hidden">
               <Link 
                 to={`/article/${heroArticle.id}`}
                 className="group block w-full"
@@ -79,7 +79,7 @@ const Hero = () => {
 
           {/* Side Articles */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-white shadow-sm overflow-hidden">
               <div className="divide-y divide-gray-100">
                 {topStories.map((article) => (
                   <Link 
@@ -88,7 +88,7 @@ const Hero = () => {
                     className="group block hover:bg-blue-50 transition-colors duration-200"
                   >
                     <article className="flex p-4">
-                    <div className="mr-4 flex-shrink-0 w-24 h-20 rounded-lg overflow-hidden">
+                    <div className="mr-4 flex-shrink-0 w-24 h-20 overflow-hidden">
                         <CustomImage
                           src={article.thumbnail_url || article.main_image_url}
                           alt={article.title}

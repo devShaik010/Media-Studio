@@ -1,19 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gulzar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
 
 @font-face {
   font-family: 'SkolarSans';
   src: url('/fonts/SkolarSans-BdCond_Cyr-Ltn.woff2') format('woff2');
-  /* Add other font formats as needed */
 }
 
 :root {
   /* Font Family */
-  --font-primary: 'Merriweather', Georgia, Times, "Times New Roman", serif;
+  --font-primary: 'Poppins', 'Merriweather', Georgia, Times, "Times New Roman", serif;
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
@@ -29,27 +27,26 @@
   --background-light: #f8f9fa;
   --border-color: #eee;
 
-  --font-ur: 'Noto Sans Arabic', sans-serif;
-  --line-height-ur: 2; /* Adjusted line height for Arabic */
+  /* Urdu/Arabic Font Settings */
+  --font-ur: 'Noto Nastaliq Urdu', serif; /* Changed to Noto Nastaliq Urdu */
+  --line-height-ur: 1.8;
 
-  /* Noto Nastaliq Urdu font weights */
+  /* Font weights */
   --font-ur-regular: 400;
   --font-ur-medium: 500;
   --font-ur-semibold: 600;
   --font-ur-bold: 700;
-
-  --font-urdu: 'Noto Sans Arabic', sans-serif;
 }
 
+/* RTL text handling */
 [dir="rtl"] {
   font-family: var(--font-ur);
-  font-weight: var(--font-weight-regular);
   line-height: var(--line-height-ur);
   text-align: right;
 }
 
 [dir="rtl"] * {
-  font-family: var(--font-ur);
+  font-family: var(--font-ur); /* Will now use Noto Nastaliq Urdu */
 }
 
 [dir="rtl"] h1,
@@ -58,51 +55,19 @@
 [dir="rtl"] h4,
 [dir="rtl"] h5,
 [dir="rtl"] h6 {
-  font-family: var(--font-ur);
+  font-family: var(--font-ur); /* Changed to use the primary Urdu font */
   line-height: 1.8;
+  padding-bottom: 0.25rem; /* Prevent text cutoff */
 }
 
-/* Fix number alignment */
+/* Fix number alignment in RTL context */
 [dir="rtl"] time,
 [dir="rtl"] .numbers {
   direction: ltr;
   display: inline-block;
 }
 
-/* Improve touch targets for mobile */
-@media (max-width: 768px) {
-  button, 
-  [role="button"],
-  .clickable {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Add smooth transitions for language switching */
-.layout-transition {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Override for English text elements even in RTL mode */
-[dir="rtl"] *[lang="en"] {
-  font-family: var(--font-primary);
-}
-
-.text-urdu {
-  font-family: var(--font-urdu);
-  font-optical-sizing: auto;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
-}
-
-/* Arabic text utility class */
-.text-arabic {
-  font-family: var(--font-ur);
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
+/* Font weight utilities */
 .font-light { font-weight: 300; }
 .font-regular { font-weight: 400; }
 .font-medium { font-weight: 500; }
@@ -119,13 +84,99 @@
   content: '';
   position: absolute;
   width: 0;
-  height: 2px; /* Thickness of the underline */
-  bottom: -4px; /* Distance of underline from text, adjust as needed */
+  height: 2px;
+  bottom: -4px;
   left: 0;
-  background-color: currentColor; /* Uses the text color for the underline */
+  background-color: currentColor;
   transition: width 0.3s ease-in-out;
 }
 
 .animated-underline:hover::after {
   width: 100%;
+}
+
+/* Text truncation */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Improved smooth transitions for language switching */
+.layout-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Make sure English text displays correctly even in RTL context */
+[dir="rtl"] *[lang="en"] {
+  font-family: var(--font-primary);
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  button, 
+  [role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mobile specific adjustments */
+  .news-card__title {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+/* Enhanced carousel styles */
+.carousel-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.carousel-item {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  z-index: 10;
+}
+
+/* Thumbnail navigation */
+.thumbnail-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 45px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  border: 2px solid transparent;
+  border-radius: 0; /* Removed border-radius */
+  overflow: hidden;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  opacity: 1;
+  border-color: var(--color-light-blue);
 }

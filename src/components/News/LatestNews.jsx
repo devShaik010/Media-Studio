@@ -25,7 +25,7 @@ const LatestNews = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="animate-pulse space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white rounded-lg h-32"></div>
+              <div key={i} className="bg-white h-32"></div>
             ))}
           </div>
         </div>
@@ -37,7 +37,7 @@ const LatestNews = () => {
     return (
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+          <div className="bg-white shadow-sm p-8 text-center">
             <svg
               className="mx-auto h-12 w-12 text-gray-400"
               fill="none"
