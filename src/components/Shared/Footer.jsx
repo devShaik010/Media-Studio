@@ -1,30 +1,31 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaYoutube, FaInstagram } from 'react-icons/fa';
+// Removed FaXTwitter import as it's no longer used
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const socialLinks = [
-    { icon: <FaFacebook size={24} />, url: 'https://facebook.com', label: 'Facebook' },
-    { icon: <FaTwitter size={24} />, url: 'https://twitter.com', label: 'Twitter' },
-    { icon: <FaYoutube size={24} />, url: 'https://youtube.com', label: 'YouTube' },
-    { icon: <FaInstagram size={24} />, url: 'https://instagram.com', label: 'Instagram' }
+    { icon: <FaFacebook size={24} />, url: 'https://www.facebook.com/share/12K9a8Ddonz/', label: 'Facebook' },
+    // Removed Twitter/X icon
+    { icon: <FaYoutube size={24} />, url: 'https://youtube.com/@faheemuddin9244?si=rLIouX7l3VOeJEEs', label: 'YouTube' },
+    { icon: <FaInstagram size={24} />, url: 'https://www.instagram.com/mediafocuspoint1?utm_source=qr&igsh=aTQ3N3gxem5lY3Rh', label: 'Instagram' }
   ];
 
   const aboutLinks = [
-    { path: '/about', label: 'About Media Studio' },
-    { path: '/contact', label: 'Contact Us' },
-    { path: '/terms', label: 'Terms of Use' },
-    { path: '/privacy', label: 'Privacy Policy' }
+    { path: '/', label: 'About Media Studio' }, // Changed to '/'
+    { path: '/', label: 'Contact Us' },     // Changed to '/'
+    { path: '/', label: 'Terms of Use' },       // Changed to '/'
+    { path: '/', label: 'Privacy Policy' }  // Changed to '/'
   ];
 
   // New navigation links based on Slider menuItems with paths
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/broadcasts', label: 'Broadcasts' },
+    { path: '/', label: 'Broadcasts' }, // Changed to '/'
   ];
 
   return (
-    <footer className="bg-blue-800 text-white py-12 mt-auto">
+    <footer className="bg-blue-800 text-white py-12 mt-auto font-poppins"> {/* Added font-poppins */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8"> {/* Changed to md:grid-cols-3 */}
         <div className="mb-6 md:mb-0">
           <h3 className="text-lg font-semibold mb-4">Follow Us</h3>

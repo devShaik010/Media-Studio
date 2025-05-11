@@ -50,7 +50,7 @@ export const fetchArticleById = async (id) => {
         youtube_link,
         status,
         created_at
-      `)
+      `) // Removed category field as it does not exist
       .eq('id', id)
       .single();
 
@@ -100,6 +100,29 @@ export const fetchArticlesByCategory = async (categoryId) => {
     return data;
   } catch (error) {
     console.error('Error fetching articles by category:', error);
+    throw error;
+  }
+};
+
+// Fetch recent articles, excluding the current article, as a fallback for related articles
+export const fetchRelatedArticles = async (currentArticleId, limit = 3) => {
+  try {
+    const { data, error } = await supabase
+      .from('articles')
+      .select('id, title, thumbnail_url, main_image_url, publish_date') // Fields needed for RelatedArticles component
+      // .eq('category', categoryId) // Removed category matching
+      .eq('status', 'Published') // Only published articles
+      .neq('id', currentArticleId) // Exclude the current article
+      .order('publish_date', { ascending: false }) // Get most recent articles
+      .limit(limit); // Limit the number of related articles
+
+    if (error) {
+      console.error('Supabase error fetching related articles:', error);
+      throw new Error('Failed to fetch related articles');
+    }
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching related articles:', error);
     throw error;
   }
 };

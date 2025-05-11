@@ -110,6 +110,33 @@ const NewsCarousel = ({ articles = [] }) => {
         </div>
       )}
 
+      {/* Active Article Title Display */}
+      {articles.length > 0 && articles[currentIndex] && (
+        <div className="mt-1 p-4 text-center bg-gray-50 dark:bg-gray-700 rounded-b-md shadow flex flex-col justify-center min-h-[10rem]">
+          <div> {/* Inner div for content grouping to allow flex centering */}
+            {(articles[currentIndex].category_name || articles[currentIndex].category || articles[currentIndex].category_id != null) && (
+              <span className="inline-block bg-red-600 text-white text-xs font-semibold px-2 py-0.5 mb-2 rounded-sm">
+                {articles[currentIndex].category_name || articles[currentIndex].category || (articles[currentIndex].category_id ? `Category ID: ${articles[currentIndex].category_id}` : 'تازہ ترین خبریں')}
+              </span>
+            )}
+            <h4 className={`text-xl font-bold text-gray-800 dark:text-gray-100 mb-2 ${articles[currentIndex].lang === 'ur' ? 'font-urdu text-2xl' : 'font-english'}`}>
+              {articles[currentIndex].title}
+            </h4>
+            {articles[currentIndex].content && (
+              <p className={`text-sm text-gray-700 dark:text-gray-300 mt-1 mb-4 ${articles[currentIndex].lang === 'ur' ? 'font-urdu text-base' : 'font-english'} leading-relaxed max-h-36 overflow-hidden text-ellipsis`}>
+                {articles[currentIndex].content.substring(0, 250)}{articles[currentIndex].content.length > 250 ? '...' : ''}
+              </p>
+            )}
+            {articles[currentIndex].published_at && (
+              <div className="flex items-center justify-center text-xs text-gray-500 dark:text-gray-400 mt-3">
+                <ClockIcon className="w-3 h-3 mr-1" />
+                <span>{formatDate(articles[currentIndex].published_at)}</span>
+              </div>
+            )}
+          </div> {/* Closing the inner div */}
+        </div>
+      )}
+
       {/* Thumbnail Previews */}
       {articles.length > 1 && (
         <div className="mt-4 flex justify-center space-x-2">
@@ -131,7 +158,7 @@ const NewsCarousel = ({ articles = [] }) => {
                     setCurrentIndex(originalIndex);
                   }
                 }}
-                className="w-16 h-10 md:w-20 md:h-12 overflow-hidden border-2 border-transparent hover:border-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="w-16 h-10 md:w-20 md:h-12 overflow-hidden border-2 border-transparent hover:border-red-500 focus:border-red-500 transition-all duration-200 rounded"
                 aria-label={`Go to slide with title ${previewArticle.title}`}
               >
                 <CustomImage

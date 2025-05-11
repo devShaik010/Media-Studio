@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mehr+Nastaliq+Web&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
 
@@ -11,7 +12,8 @@
 
 :root {
   /* Font Family */
-  --font-primary: 'Poppins', 'Merriweather', Georgia, Times, "Times New Roman", serif;
+  --font-primary: 'Poppins', sans-serif; /* Changed to Poppins as primary */
+  --font-secondary: 'Merriweather', Georgia, Times, "Times New Roman", serif; /* Merriweather as secondary */
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
@@ -28,7 +30,7 @@
   --border-color: #eee;
 
   /* Urdu/Arabic Font Settings */
-  --font-ur: 'Noto Nastaliq Urdu', serif; /* Changed to Noto Nastaliq Urdu */
+  --font-ur: 'Mehr Nastaliq Web', 'Noto Nastaliq Urdu', serif; /* Changed to Mehr Nastaliq Web */
   --line-height-ur: 1.8;
 
   /* Font weights */
@@ -119,6 +121,21 @@
 [dir="rtl"] *[lang="en"] {
   font-family: var(--font-primary);
 }
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-white); /* Set global background to white */
+}
+
+/* Specific classes for other fonts if needed */
+.font-merriweather {
+  font-family: var(--font-secondary);
+}
+
+.font-newsreader {
+  font-family: 'Newsreader', serif;
+}
+
 
 /* Improve touch targets for mobile */
 @media (max-width: 768px) {

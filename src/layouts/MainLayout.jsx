@@ -8,7 +8,7 @@ const MainLayout = ({ children }) => {
   const { isOpen, closeDrawer } = useDrawer();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-white"> {/* Changed bg-gray-50 to bg-white */}
       <Navbar />
       <main className="flex-grow container mx-auto px-4">
         {children}

@@ -68,16 +68,43 @@ const LatestNews = () => {
         {/* Header */}
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Latest News</h2>
 
-        {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {latestNews.map(article => (
-            <NewsCard
-              key={article.id}
-              article={article}
-              onClick={() => handleArticleClick(article.id)}
-            />
-          ))}
-        </div>
+        {/* News Grid - Updated Layout */}
+        {(() => {
+          const listArticlesCount = 4;
+          const articlesForList = latestNews.slice(0, listArticlesCount);
+          const articlesForGrid = latestNews.slice(listArticlesCount);
+
+          return (
+            <>
+              {/* First batch of articles (more prominent) */}
+              {articlesForList.length > 0 && (
+                <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {articlesForList.map(article => (
+                    <NewsCard
+                      key={article.id}
+                      article={article}
+                      onClick={() => handleArticleClick(article.id)}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Remaining articles in a denser grid */}
+              {articlesForGrid.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                  {articlesForGrid.map(article => (
+                    <NewsCard
+                      key={article.id}
+                      article={article}
+                      onClick={() => handleArticleClick(article.id)}
+                      cardStyle="new"
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          );
+        })()}
 
         {/* More Stories */}
         {moreStories.length > 0 && (

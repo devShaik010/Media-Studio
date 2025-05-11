@@ -6,43 +6,50 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Collapse,
-  IconButton
+  // Collapse, // Not used anymore
+  IconButton,
+  TextField, // For search bar
+  InputAdornment // For search icon in TextField
 } from '@mui/material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
-import RadioOutlinedIcon from '@mui/icons-material/RadioOutlined';
-import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import CloseIcon from '@mui/icons-material/Close';
+// import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'; // Not used
+// import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'; // Not used
+// import RadioOutlinedIcon from '@mui/icons-material/RadioOutlined'; // Not used
+// import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined'; // Not used
+// import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined'; // Not used
+// import ExpandLess from '@mui/icons-material/ExpandLess'; // Not used
+// import ExpandMore from '@mui/icons-material/ExpandMore'; // Not used
+import CloseIcon from '@mui/icons-material/Close'; // Still used for overlay, but not prominent header
+import SearchIcon from '@mui/icons-material/Search'; // For search bar
 import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import InstagramIcon from '@mui/icons-material/Instagram';
+// Removed FaXTwitter import as it's no longer used
 import clsx from 'clsx';
 
-// Define menu items (English only)
+// Define menu items (Urdu, based on image)
 const menuItems = [
-  { text: 'Home', icon: <HomeOutlinedIcon />, path: '/' },
-  { text: 'World', icon: <PublicOutlinedIcon />, path: '/category/world' }, // Assuming 'world' is a category ID
-  { text: 'Broadcasts', icon: <RadioOutlinedIcon />, path: '/broadcasts' },
+  { text: 'سروق', path: '/category/sarwarq' },
+  { text: 'تازه ترین خبریں', path: '/category/latest-news' },
+  { text: 'تلنگانه', path: '/category/telangana' },
+  { text: 'حیدرآباد', path: '/category/hyderabad' },
+  { text: 'قومی خبریں', path: '/category/national' },
+  { text: 'جرائم و حادثات', path: '/category/crime' },
+  { text: 'خاص خبر', path: '/category/special' },
 ];
 
+// Updated social icons based on image
 const socialIcons = [
-  { icon: <FacebookIcon />, link: 'https://facebook.com/voiceofamerica', label: 'Facebook' },
-  { icon: <TwitterIcon />, link: 'https://twitter.com/voanews', label: 'Twitter' },
-  { icon: <YouTubeIcon />, link: 'https://youtube.com/voanews', label: 'YouTube' },
-  { icon: <InstagramIcon />, link: 'https://instagram.com/voanews', label: 'Instagram' }
+  { icon: <FacebookIcon />, link: 'https://www.facebook.com/share/12K9a8Ddonz/', label: 'Facebook' },
+  { icon: <YouTubeIcon />, link: 'https://youtube.com/@faheemuddin9244?si=rLIouX7l3VOeJEEs', label: 'YouTube' },
+  { icon: <InstagramIcon />, link: 'https://www.instagram.com/mediafocuspoint1?utm_source=qr&igsh=aTQ3N3gxem5lY3Rh', label: 'Instagram' }
 ];
 
 const Slider = ({ open, onClose }) => {
-  const [expandedItem, setExpandedItem] = useState(null);
+  // const [expandedItem, setExpandedItem] = useState(null); // Not used anymore
 
-  const handleExpand = (text) => {
-    setExpandedItem(expandedItem === text ? null : text);
-  };
+  // const handleExpand = (text) => { // Not used anymore
+  //   setExpandedItem(expandedItem === text ? null : text);
+  // };
 
   return (
     <>
@@ -56,84 +63,100 @@ const Slider = ({ open, onClose }) => {
         aria-hidden={!open}
       />
 
-      {/* Slider Container - Updated with a more vibrant blue for better UX */}
+      {/* Slider Container - Changed to white background, LTR assumed for now, adjust if RTL specific needed */}
       <div
         className={clsx(
-          'fixed top-0 bottom-0 w-80 bg-blue-700 z-[1300] shadow-xl flex flex-col transition-transform duration-300 ease-in-out',
+          'fixed top-0 bottom-0 w-72 md:w-80 bg-white z-[1300] shadow-xl flex flex-col transition-transform duration-300 ease-in-out', // Changed bg, adjusted width
           'transform',
-          open
-            ? 'translate-x-0'
-            : '-translate-x-full',
-          'left-0' // Always left for LTR
+          open ? 'translate-x-0' : '-translate-x-full',
+          'left-0' // Assuming LTR, for RTL this would be 'right-0' and 'translate-x-full'
         )}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="drawer-title"
+        aria-labelledby="drawer-title" // Keep for accessibility, though title is visually hidden
       >
-        {/* Header with improved border contrast */}
-        <div className="h-16 flex items-center justify-start px-4 border-b border-white/30 flex-shrink-0">
-          <IconButton
-            onClick={onClose}
-            aria-label="Close menu"
-            className="!text-white hover:!bg-white/20 !transition-colors"
-          >
-            <CloseIcon />
-          </IconButton>
-          <h2 id="drawer-title" className="sr-only">Navigation Menu</h2>
+        {/* Optional: Close button at top right of drawer itself, if desired in addition to overlay click */}
+        <div className="absolute top-2 right-2">
+            <IconButton onClick={onClose} aria-label="Close menu" className="!text-gray-500 hover:!text-gray-800">
+                <CloseIcon />
+            </IconButton>
         </div>
+        <h2 id="drawer-title" className="sr-only">Navigation Menu</h2>
 
-        {/* Menu Items List with improved active states */}
-        <List className="py-2 flex-grow overflow-y-auto">
-          {menuItems.map((item) => (
-            <ListItem key={item.text} disablePadding>
-              <ListItemButton
-                onClick={onClose} // Close drawer on item click
-                className={clsx(
-                  'flex items-center gap-4 px-6 py-3 text-white cursor-pointer transition-all duration-200 ease-in-out',
-                  'border-l-4', // Always left border for LTR
-                  // Improved active state with clearer visual indication
-                  window.location.pathname === item.path
-                    ? 'border-yellow-400 bg-blue-800'
-                    : 'border-transparent hover:bg-blue-600 hover:border-blue-300',
-                  'focus:bg-blue-800 focus:border-yellow-400'
-                )}
-                component={Link}
-                to={item.path}
-              >
-                <ListItemIcon className="!text-white !min-w-[auto]">
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.text}
-                  className={clsx('!text-white', 'text-sm')} // Always text-sm for English
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        {/* Content Area */}
+        <div className="p-4 flex flex-col h-full">
+          {/* Search Bar */}
+          <div className="mb-4">
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Search..."
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon className="text-gray-400" />
+                  </InputAdornment>
+                ),
+                style: { direction: 'ltr' } // Keep search input LTR for typical search behavior
+              }}
+              inputProps={{ style: { textAlign: 'left' } }} // Text inside input LTR
+              className="bg-gray-50" // Light background for search
+            />
+          </div>
 
-        {/* Footer with improved visibility */}
-        <div className="px-6 py-4 border-t border-white/30 bg-blue-800 flex-shrink-0">
-          <p className={clsx(
-            "text-white text-sm mb-3 font-medium",
-            'font-sans' // Always font-sans for English
-          )}>
-            Follow us
-          </p>
-          <div className="flex justify-start gap-3">
-            {socialIcons.map((social, index) => (
-              <IconButton
-                key={index}
-                href={social.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Follow us on ${social.label}`}
-                className="!text-white !bg-blue-600 hover:!bg-blue-500 !transition-all !shadow-sm"
-                size="small"
-              >
-                {social.icon}
-              </IconButton>
+          {/* Menu Items List - Vertical, Urdu text, right-aligned */}
+          <List className="flex-grow overflow-y-auto">
+            {menuItems.map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    // Navigate or perform action then close
+                    onClose();
+                  }}
+                  className={clsx(
+                    'py-2 px-1 text-gray-700 hover:bg-gray-100 transition-all duration-150 ease-in-out w-full',
+                    // Active state styling (optional, can be adapted)
+                    window.location.pathname === item.path
+                      ? 'bg-gray-100 font-semibold'
+                      : 'font-normal'
+                  )}
+                  component={Link}
+                  to={item.path}
+                  sx={{ justifyContent: 'flex-end' }} // Align text to the right for Urdu
+                >
+                  <ListItemText
+                    primary={item.text}
+                    primaryTypographyProps={{ 
+                      className: 'text-right text-md', // Ensure text is right aligned
+                      style: { fontFamily: 'Arial, sans-serif' } // Specify a font that supports Urdu well if needed
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
             ))}
+          </List>
+
+          {/* Footer with Social Icons and Copyright */}
+          <div className="mt-auto pt-4 border-t border-gray-200">
+            <div className="flex justify-center gap-x-5 mb-4">
+              {socialIcons.map((social, index) => (
+                <IconButton
+                  key={index}
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${social.label}`} // Simpler label
+                  className="!text-gray-600 hover:!text-blue-600" // Adjusted colors
+                  size="medium"
+                >
+                  {/* Ensure icon components are correctly passed */}
+                  {React.cloneElement(social.icon, { fontSize: 'medium' })}
+                </IconButton>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500 text-center pb-2">
+              © 2025 Media Studio. All Rights Reserved.
+            </p>
           </div>
         </div>
       </div>

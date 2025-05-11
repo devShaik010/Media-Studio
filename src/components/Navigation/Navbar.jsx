@@ -4,6 +4,10 @@ import { IconButton, useScrollTrigger } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
+// Removed HomeIcon import
+import FacebookIcon from '@mui/icons-material/Facebook';
+import XIcon from '@mui/icons-material/X'; // Changed TwitterIcon to XIcon
+import InstagramIcon from '@mui/icons-material/Instagram';
 import { useDrawer } from '@context/DrawerContext';
 import CustomImage from '@components/Shared/CustomImage';
 import SearchModal from '@components/Shared/SearchModal'; // Added SearchModal import
@@ -59,17 +63,33 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Navigation Links (desktop) - Centered below logo */}
-        <div className="hidden md:flex items-center gap-x-8">
-          <Link to="#" title="Coming Soon" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
-            سیاسی خبریں
-          </Link>
-          <Link to="#" title="Coming Soon" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
-            کھیل خبریں
-          </Link>
-          <Link to="#" title="Coming Soon" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
-            عالمی خبریں
-          </Link>
+        {/* Navigation Links (desktop) - Centered */}
+        <div className="hidden md:flex items-center justify-center w-full mt-2"> {/* Main container - justify-center */}
+          {/* Nav Links */}
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2"> {/* Inner container also justify-center */}
+            <Link to="/" title="سروق" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
+              سروق
+            </Link>
+            <Link to="/" title="تازه ترین خبریں" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
+              تازه ترین خبریں
+            </Link>
+            <Link to="/" title="تلنگانه" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
+              تلنگانه
+            </Link>
+            <Link to="/" title="حیدرآباد" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
+              حیدرآباد
+            </Link>
+            <Link to="/" title="قومی خبریں" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
+              قومی خبریں
+            </Link>
+            <Link to="/" title="جرائم و حادثات" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
+              جرائم و حادثات
+            </Link>
+            <Link to="/" title="خاص خبر" className="text-gray-800 animated-underline transition-all duration-200 font-bold">
+              خاص خبر
+            </Link>
+          </div>
+          {/* Social Media Icons REMOVED */}
         </div>
 
         {/* Search Icon - Top Right (Absolute Positioned) */}
