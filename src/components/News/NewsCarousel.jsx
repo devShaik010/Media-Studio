@@ -81,38 +81,42 @@ const NewsCarousel = ({ articles = [] }) => {
         <>
           <button
             onClick={handlePrev}
-            className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/50 text-white p-2 hover:bg-black/70 z-20"
+            className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-150 z-20"
             aria-label="Previous slide"
           >
-            &#10094;
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
           </button>
           <button
             onClick={handleNext}
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/50 text-white p-2 hover:bg-black/70 z-20"
+            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-150 z-20"
             aria-label="Next slide"
           >
-            &#10095;
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
           </button>
         </>
       )}
       
-      {/* Dots Indicator */}
+      {/* Dots Indicator - Hidden on small screens (sm and below), visible on md and up */}
       {articles.length > 1 && (
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        <div className="hidden md:flex absolute bottom-2 left-1/2 transform -translate-x-1/2 space-x-2 z-20">
           {articles.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2.5 h-2.5 ${index === currentIndex ? 'bg-white' : 'bg-gray-400/70'}`}
+              className={`w-2.5 h-2.5 rounded-full ${index === currentIndex ? 'bg-white' : 'bg-gray-400/60 hover:bg-gray-300/80'}`}
               aria-label={`Go to slide ${index + 1}`}
             ></button>
           ))}
         </div>
       )}
 
-      {/* Active Article Title Display */}
+      {/* Active Article Title Display - Hidden on small screens (sm and below), visible on md and up */}
       {articles.length > 0 && articles[currentIndex] && (
-        <div className="mt-1 p-4 text-center bg-gray-50 dark:bg-gray-700 rounded-b-md shadow flex flex-col justify-center min-h-[10rem]">
+        <div className="hidden md:flex mt-1 p-4 text-center bg-gray-50 dark:bg-gray-700 rounded-b-md shadow flex-col justify-center min-h-[10rem]">
           <div> {/* Inner div for content grouping to allow flex centering */}
             {(articles[currentIndex].category_name || articles[currentIndex].category || articles[currentIndex].category_id != null) && (
               <span className="inline-block bg-red-600 text-white text-xs font-semibold px-2 py-0.5 mb-2 rounded-sm">
@@ -137,9 +141,9 @@ const NewsCarousel = ({ articles = [] }) => {
         </div>
       )}
 
-      {/* Thumbnail Previews */}
+      {/* Thumbnail Previews - Hidden on small screens (sm and below), visible on md and up */}
       {articles.length > 1 && (
-        <div className="mt-4 flex justify-center space-x-2">
+        <div className="hidden md:flex mt-4 justify-center space-x-2">
           {(() => {
             // Get up to 4 thumbnails, excluding the current article
             const previewArticles = articles
