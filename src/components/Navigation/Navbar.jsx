@@ -11,7 +11,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import { useDrawer } from '@context/DrawerContext';
 import CustomImage from '@components/Shared/CustomImage';
 import SearchModal from '@components/Shared/SearchModal'; // Added SearchModal import
-import mfpLogo from '/mfpLogo.png'; // Updated path to public directory
+import mfpLogo from '/mfp-logo.svg'; // Updated path to public directory
 import clsx from 'clsx';
 
 const Navbar = () => {
@@ -55,11 +55,8 @@ const Navbar = () => {
         {/* Logo - Centered */}
         <div className="mb-1 mt-1"> {/* Adjusted margin for logo */}
           <Link to="/">
-            <CustomImage
-              src={mfpLogo}
-              alt="MFP 24/7 NEWS"
-              className={logoClasses}
-            />
+          <img src={mfpLogo} alt="MFP 24/7 NEWS" style={{ height: scrolled ? '0px' : '110px' }} />
+
           </Link>
         </div>
 

@@ -10,7 +10,7 @@ const MainLayout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col bg-white"> {/* Changed bg-gray-50 to bg-white */}
       <Navbar />
-      <main className="flex-grow container mx-auto px-4">
+      <main className="flex-grow container mx-auto ">
         {children}
       </main>
       <Footer />

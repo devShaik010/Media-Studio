@@ -74,7 +74,7 @@ const Home = () => {
   }
 
   return (
-    <div className="container mx-auto px-2 py-4">
+    <div className="container mx-auto px-2 py-4 pt-20">
       {/* Breaking News Carousel at the top */}
       {breakingNewsItems.length > 0 && <BreakingNews newsItems={breakingNewsItems} />}
 
