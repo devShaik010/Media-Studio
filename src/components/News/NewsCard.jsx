@@ -5,14 +5,18 @@ import ClockIcon from '../Shared/ClockIcon';
 import { formatDate } from '../../utils/dateFormatter';
 import { generateSlug } from '../../services/articlesService';
 
+// Default image path for when no image is available
+const DEFAULT_IMAGE = '/breakingNews.png';
+
 const NewsCard = ({ article, onClick, cardStyle = "default" }) => {
   if (!article) return null;
 
   const views = article.views || 0;
   const isRTL = article.lang === 'ur' || article.lang === 'ar';
   const categoryText = article.category_name || article.category || (article.category_id ? `Category: ${article.category_id}` : 'تازہ ترین خبریں');
-  // Use a specific field for image if available, otherwise fallback
-  const imageUrl = article.image || article.thumbnail_url || article.main_image_url;
+  
+  // Use a specific field for image if available, otherwise use default image
+  const imageUrl = article.image || article.thumbnail_url || article.main_image_url || DEFAULT_IMAGE;
   
   // Generate article URL with slug for better SEO and readability
   const articleUrl = `/article/${article.slug || `${article.id}-${generateSlug(article.title)}`}`;

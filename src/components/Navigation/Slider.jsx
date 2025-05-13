@@ -28,13 +28,13 @@ import clsx from 'clsx';
 
 // Define menu items (Urdu, based on image)
 const menuItems = [
-  { text: 'سروق', path: '/category/sarwarq' },
-  { text: 'تازه ترین خبریں', path: '/category/latest-news' },
-  { text: 'تلنگانه', path: '/category/telangana' },
-  { text: 'حیدرآباد', path: '/category/hyderabad' },
-  { text: 'قومی خبریں', path: '/category/national' },
-  { text: 'جرائم و حادثات', path: '/category/crime' },
-  { text: 'خاص خبر', path: '/category/special' },
+  { text: 'سروق', path: '/' },
+  { text: 'تازه ترین خبریں', path: '/' },
+  { text: 'تلنگانه', path: '/' },
+  { text: 'حیدرآباد', path: '/' },
+  { text: 'قومی خبریں', path: '/' },
+  { text: 'جرائم و حادثات', path: '/' },
+  { text: 'خاص خبر', path: '/' },
 ];
 
 // Updated social icons based on image

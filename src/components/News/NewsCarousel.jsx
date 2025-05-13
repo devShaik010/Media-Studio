@@ -3,21 +3,31 @@ import CustomImage from '../Shared/CustomImage';
 import { Link } from 'react-router-dom';
 import ClockIcon from '../Shared/ClockIcon';
 import { formatDate } from '../../utils/dateFormatter';
+import { generateSlug } from '../../services/articlesService';
+
+// Default image path for when no image is available
+const DEFAULT_IMAGE = '/breakingNews.png';
 
 // Basic Carousel Item (styled similarly to NewsCard)
 const CarouselItem = ({ article, isActive }) => {
   if (!article) return null;
   const views = article.views || 0;
+  
+  // Generate article URL with slug for better SEO and readability
+  const articleUrl = `/article/${article.slug || `${article.id}-${generateSlug(article.title)}`}`;
+  
+  // Use a specific field for image if available, otherwise use default image
+  const imageUrl = article.main_image_url || article.thumbnail_url || DEFAULT_IMAGE;
 
   return (
     <div className={`w-full h-full flex-shrink-0 ${isActive ? 'block' : 'hidden'}`}>
-      <Link to={`/article/${article.id}`} className="block group relative shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden h-full">
+      <Link to={articleUrl} className="block group relative shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden h-full">
         <div className="absolute inset-0">
           <CustomImage
-            src={article.main_image_url || article.thumbnail_url}
+            src={imageUrl}
             alt={article.title}
             className="w-full h-full object-cover transition-transform duration-300"
-            fallbackSrc="/placeholder.png"
+            fallbackSrc={DEFAULT_IMAGE}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
         </div>
@@ -166,10 +176,10 @@ const NewsCarousel = ({ articles = [] }) => {
                 aria-label={`Go to slide with title ${previewArticle.title}`}
               >
                 <CustomImage
-                  src={previewArticle.thumbnail_url || previewArticle.main_image_url}
+                  src={previewArticle.thumbnail_url || previewArticle.main_image_url || DEFAULT_IMAGE}
                   alt={`Preview of ${previewArticle.title}`}
                   className="w-full h-full object-cover"
-                  fallbackSrc="/placeholder.png"
+                  fallbackSrc={DEFAULT_IMAGE}
                 />
               </button>
             ));

@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CustomImage = ({ src, alt, className = '', fallbackSrc = '/vite.svg' }) => { // Changed default fallbackSrc
-  const handleError = (e) => {
-    // To prevent infinite loop if fallbackSrc also fails
-    if (e.target.src !== fallbackSrc) {
-      e.target.src = fallbackSrc;
+// Default fallback image for all components using CustomImage
+const DEFAULT_FALLBACK = '/breakingNews.png';
+
+const CustomImage = ({ src, alt, className = '', fallbackSrc = DEFAULT_FALLBACK }) => {
+  const [imgSrc, setImgSrc] = useState(src || fallbackSrc);
+  
+  // Update image source if src prop changes
+  useEffect(() => {
+    if (src) {
+      setImgSrc(src);
+    }
+  }, [src]);
+  
+  const handleError = () => {
+    // If the current source is already the fallback, don't try to set it again
+    // This prevents potential infinite loops if the fallback itself fails
+    if (imgSrc !== fallbackSrc) {
+      setImgSrc(fallbackSrc);
     }
   };
 
   return (
     <img
-      src={src}
-      alt={alt}
+      src={imgSrc}
+      alt={alt || 'Image'}
       className={className}
       onError={handleError}
       loading="lazy"
