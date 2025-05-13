@@ -17,6 +17,10 @@
       "dest": "/mfpLogo.png"
     },
     {
+      "src": "/mfp-logo.svg",
+      "dest": "/mfp-logo.svg"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
