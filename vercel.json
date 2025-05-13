@@ -1,10 +1,9 @@
 {
   "rewrites": [
+    { "source": "/article/:slug", "destination": "/index.html" },
+    { "source": "/category/:categoryId", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "routes": [
-    { "src": "/article/[^/]+", "dest": "/index.html" },
-    { "src": "/category/[^/]+", "dest": "/index.html" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
