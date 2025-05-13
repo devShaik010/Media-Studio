@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CustomImage from '../Shared/CustomImage';
 import ClockIcon from '../Shared/ClockIcon';
 import { formatDate } from '../../utils/dateFormatter';
+import { generateSlug } from '../../services/articlesService';
 
 const NewsCard = ({ article, onClick, cardStyle = "default" }) => {
   if (!article) return null;
@@ -12,14 +13,16 @@ const NewsCard = ({ article, onClick, cardStyle = "default" }) => {
   const categoryText = article.category_name || article.category || (article.category_id ? `Category: ${article.category_id}` : 'تازہ ترین خبریں');
   // Use a specific field for image if available, otherwise fallback
   const imageUrl = article.image || article.thumbnail_url || article.main_image_url;
-
+  
+  // Generate article URL with slug for better SEO and readability
+  const articleUrl = `/article/${article.slug || `${article.id}-${generateSlug(article.title)}`}`;
 
   if (cardStyle === "new") {
     // Style inspired by the user's RelatedNewsCard example
     return (
       <div className="h-full w-full group flex flex-col">
         <Link
-          to={`/article/${article.id}`}
+          to={articleUrl}
           onClick={onClick}
           className="block"
         >
@@ -42,7 +45,7 @@ const NewsCard = ({ article, onClick, cardStyle = "default" }) => {
         {/* Content section below image */}
         <div className={`mt-3 flex-grow flex flex-col ${isRTL ? 'text-right' : 'text-left'}`} dir={isRTL ? "rtl" : "ltr"}>
           <Link
-            to={`/article/${article.id}`}
+            to={articleUrl}
             onClick={onClick}
             className="block group/title"
           >
@@ -81,7 +84,7 @@ const NewsCard = ({ article, onClick, cardStyle = "default" }) => {
   return (
     <div className="h-full w-full">
       <Link
-        to={`/article/${article.id}`}
+        to={articleUrl}
         onClick={onClick}
         className="block h-full group relative shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden"
       >

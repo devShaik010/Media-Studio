@@ -1,43 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { fetchArticleById, fetchRelatedArticles } from '../services/articlesService'; // Added fetchRelatedArticles
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { fetchArticleById, fetchRelatedArticles, generateSlug } from '../services/articlesService';
 import { format } from 'date-fns';
 import SocialShareButtons from '@components/Shared/SocialShareButtons';
 import { arSA } from 'date-fns/locale';
 import CustomImage from '@components/Shared/CustomImage';
-import RelatedArticles from '../components/Article/RelatedArticles'; // Import RelatedArticles component
+import RelatedArticles from '../components/Article/RelatedArticles';
 
 const Article = () => {
-  const { id } = useParams();
+  const { slug } = useParams(); // Changed from id to slug
   const location = useLocation();
+  const navigate = useNavigate();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [relatedArticles, setRelatedArticles] = useState([]);
-  // Optional: separate loading/error state for related articles
-  // const [relatedLoading, setRelatedLoading] = useState(false); 
-  // const [relatedError, setRelatedError] = useState(null);
-
 
   useEffect(() => {
     const loadArticleAndRelated = async () => {
       try {
         setLoading(true);
-        setArticle(null); // Reset article on ID change
+        setArticle(null); // Reset article on slug change
         setRelatedArticles([]); // Reset related articles
-        const mainArticleData = await fetchArticleById(id);
+        
+        const mainArticleData = await fetchArticleById(slug);
+        
+        if (!mainArticleData) {
+          setError('Article not found');
+          return;
+        }
+        
         setArticle(mainArticleData);
+        
+        // Check if the URL needs to be updated to the canonical slug format
+        const correctSlug = `${mainArticleData.id}-${generateSlug(mainArticleData.title)}`;
+        if (slug !== correctSlug && !slug.match(/^\d+$/)) {
+          // Redirect to the correct slug URL without causing a page reload
+          navigate(`/article/${correctSlug}`, { replace: true });
+        }
 
-        if (mainArticleData && mainArticleData.id) { // Condition updated: no longer checks for category
-          // setRelatedLoading(true); // If using separate loading state
+        if (mainArticleData && mainArticleData.id) {
           try {
-            const relatedData = await fetchRelatedArticles(mainArticleData.id); // Call updated: only pass ID
+            const relatedData = await fetchRelatedArticles(mainArticleData.id);
             setRelatedArticles(relatedData);
           } catch (relatedErr) {
             console.error("Failed to load related articles:", relatedErr);
-            // setRelatedError(relatedErr.message); // If using separate error state
-          } finally {
-            // setRelatedLoading(false); // If using separate loading state
           }
         }
       } catch (err) {
@@ -48,7 +55,7 @@ const Article = () => {
     };
 
     loadArticleAndRelated();
-  }, [id]);
+  }, [slug, navigate]);
 
   if (loading && !article) { // Show main loading only if article is not yet set
     return (

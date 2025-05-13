@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useArticles } from '../hooks/useArticles';
-import NewsCard from '../components/News/NewsCard'; // Restored import
-import NewsCarousel from '../components/News/NewsCarousel'; // Restored import
+import { generateSlug } from '../services/articlesService';
+import NewsCard from '../components/News/NewsCard';
+import NewsCarousel from '../components/News/NewsCarousel';
 import BreakingNews from '../components/News/BreakingNews';
 import ArticleListItem from '../components/Shared/ArticleListItem';
 
@@ -95,7 +96,7 @@ const Home = () => {
             <div key={`left-col-${article.id}`} className="h-48">
               <NewsCard
                 article={article}
-                onClick={() => navigate(`/article/${article.id}`)}
+                onClick={() => navigate(`/article/${article.slug || `${article.id}-${generateSlug(article.title)}`}`)}
               />
             </div>
           ))}
@@ -116,7 +117,7 @@ const Home = () => {
             <div key={`right-col-${article.id}`} className="h-48">
               <NewsCard
                 article={article}
-                onClick={() => navigate(`/article/${article.id}`)}
+                onClick={() => navigate(`/article/${article.slug || `${article.id}-${generateSlug(article.title)}`}`)}
               />
             </div>
           ))}
@@ -157,7 +158,7 @@ const Home = () => {
                           <NewsCard
                             key={`grid-item-${article.id}`}
                             article={article}
-                            onClick={() => navigate(`/article/${article.id}`)}
+                            onClick={() => navigate(`/article/${article.slug || `${article.id}-${generateSlug(article.title)}`}`)}
                             cardStyle="new" // Use the new card style
                           />
                         ))}

@@ -1,5 +1,15 @@
 import { supabase } from '../lib/supabaseClient';
 
+// Generate a slug from title
+export const generateSlug = (title) => {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .trim();
+};
+
 // Fetch all published articles
 export const fetchArticles = async () => {
   try {
@@ -28,16 +38,34 @@ export const fetchArticles = async () => {
       return [];
     }
 
-    return data;
+    // Add slug to each article
+    return data.map(article => ({
+      ...article,
+      slug: `${article.id}-${generateSlug(article.title)}`
+    }));
   } catch (error) {
     console.error('Error fetching articles:', error);
     throw new Error('Failed to load articles. Please try again later.');
   }
 };
 
-// Fetch single article by ID
-export const fetchArticleById = async (id) => {
+// Fetch single article by ID or slug
+export const fetchArticleById = async (idOrSlug) => {
   try {
+    // Check if idOrSlug is a number or a slug
+    const isNumeric = /^\d+$/.test(idOrSlug);
+    let id = idOrSlug;
+    
+    // If it's a slug, extract the ID from the beginning
+    if (!isNumeric) {
+      const idMatch = idOrSlug.match(/^(\d+)-/);
+      if (idMatch && idMatch[1]) {
+        id = idMatch[1];
+      } else {
+        throw new Error('Invalid article identifier');
+      }
+    }
+
     const { data, error } = await supabase
       .from('articles')
       .select(`
@@ -50,12 +78,21 @@ export const fetchArticleById = async (id) => {
         youtube_link,
         status,
         created_at
-      `) // Removed category field as it does not exist
+      `)
       .eq('id', id)
       .single();
 
     if (error) throw error;
-    return data;
+    
+    if (data) {
+      // Add slug to the article
+      return {
+        ...data,
+        slug: `${data.id}-${generateSlug(data.title)}`
+      };
+    }
+    
+    return null;
   } catch (error) {
     console.error('Error fetching article:', error);
     throw error;
@@ -80,7 +117,12 @@ export const searchArticles = async (searchTerm) => {
       console.error('Supabase search error:', error);
       throw new Error('Failed to search articles');
     }
-    return data || [];
+    
+    // Add slug to each article
+    return (data || []).map(article => ({
+      ...article,
+      slug: `${article.id}-${generateSlug(article.title)}`
+    }));
   } catch (error) {
     console.error('Error searching articles:', error);
     throw error; // Re-throw to be caught by the caller
@@ -97,7 +139,12 @@ export const fetchArticlesByCategory = async (categoryId) => {
       .order('created_at', { ascending: false });
 
     if (error) throw error;
-    return data;
+    
+    // Add slug to each article
+    return data.map(article => ({
+      ...article,
+      slug: `${article.id}-${generateSlug(article.title)}`
+    }));
   } catch (error) {
     console.error('Error fetching articles by category:', error);
     throw error;
@@ -110,7 +157,6 @@ export const fetchRelatedArticles = async (currentArticleId, limit = 3) => {
     const { data, error } = await supabase
       .from('articles')
       .select('id, title, thumbnail_url, main_image_url, publish_date') // Fields needed for RelatedArticles component
-      // .eq('category', categoryId) // Removed category matching
       .eq('status', 'Published') // Only published articles
       .neq('id', currentArticleId) // Exclude the current article
       .order('publish_date', { ascending: false }) // Get most recent articles
@@ -120,7 +166,12 @@ export const fetchRelatedArticles = async (currentArticleId, limit = 3) => {
       console.error('Supabase error fetching related articles:', error);
       throw new Error('Failed to fetch related articles');
     }
-    return data || [];
+    
+    // Add slug to each article
+    return (data || []).map(article => ({
+      ...article,
+      slug: `${article.id}-${generateSlug(article.title)}`
+    }));
   } catch (error) {
     console.error('Error fetching related articles:', error);
     throw error;
@@ -135,7 +186,12 @@ export const fetchAllArticles = async () => {
       .order('created_at', { ascending: false });
 
     if (error) throw error;
-    return data;
+    
+    // Add slug to each article
+    return data.map(article => ({
+      ...article,
+      slug: `${article.id}-${generateSlug(article.title)}`
+    }));
   } catch (error) {
     console.error('Error fetching articles:', error);
     throw error;

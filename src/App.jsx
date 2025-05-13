@@ -20,7 +20,8 @@ const AppContent = () => {
       <main className="flex-grow container mx-auto px-4 pt-24 pb-6"> {/* Adjusted padding: py-6 to pt-24 pb-6 */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/article/:id" element={<Article />} />
+          {/* Support both ID-only and slug-based article routes */}
+          <Route path="/article/:slug" element={<Article />} />
           <Route path="/category/:categoryId" element={<CategoryPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
