@@ -7,7 +7,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: <FaFacebook size={24} />, url: 'https://www.facebook.com/share/12K9a8Ddonz/', label: 'Facebook' },
     // Removed Twitter/X icon
-    { icon: <FaYoutube size={24} />, url: 'https://youtube.com/@faheemuddin9244?si=rLIouX7l3VOeJEEs', label: 'YouTube' },
+    { icon: <FaYoutube size={24} />, url: 'https://youtube.com/@mediafocuspoint?si=Nckpo71IxQmfNf8y', label: 'YouTube' },
     { icon: <FaInstagram size={24} />, url: 'https://www.instagram.com/mediafocuspoint1?utm_source=qr&igsh=aTQ3N3gxem5lY3Rh', label: 'Instagram' }
   ];
 
